@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">OpratingState</string>
+    <string name="photovoltaic_operating_state">光伏运行信息</string>
+</resources>
