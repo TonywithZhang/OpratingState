@@ -81,4 +81,6 @@ dependencies {
     implementation "androidx.work:work-multiprocess:$work_version"
     implementation "io.github.vanpra.compose-material-dialogs:core:0.5.1"
     implementation "io.github.vanpra.compose-material-dialogs:datetime:0.5.1"
+    implementation "androidx.datastore:datastore:1.0.0"
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
 }

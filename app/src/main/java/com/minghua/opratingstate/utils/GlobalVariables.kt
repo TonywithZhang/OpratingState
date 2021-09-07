@@ -1,6 +1,11 @@
 package com.minghua.opratingstate.utils
 
+import android.content.Context
 import androidx.compose.ui.graphics.Color
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
 import com.minghua.opratingstate.ui.theme.Teal200
 import java.text.SimpleDateFormat
 import java.util.*
@@ -18,3 +23,5 @@ fun yCoordination(height: Float, y: Float, maxValue: Float): Float {
 }
 
 val colorGroup = listOf(Color.Red, Teal200)
+
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")

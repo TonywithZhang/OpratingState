@@ -26,6 +26,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -33,11 +35,17 @@ import com.airbnb.lottie.compose.*
 import com.minghua.opratingstate.network.repositories.loginNetwork
 import com.minghua.opratingstate.ui.fragments.StateSummary
 import com.minghua.opratingstate.ui.theme.OpratingStateTheme
+import com.minghua.opratingstate.utils.dataStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.Exception
+
+val loginKey = booleanPreferencesKey("login_state")
 
 class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
@@ -57,7 +65,11 @@ class MainActivity : ComponentActivity() {
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainPage(modifier: Modifier = Modifier) {
+    val loginStateFlow : Flow<Boolean> = LocalContext.current.dataStore.data.map { preference -> preference[loginKey] ?: false }
     var loginState by remember { mutableStateOf(false) }
+    LaunchedEffect(0){
+        loginStateFlow.collect { loginState = it }
+    }
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "main") {
         composable("main") {
@@ -232,6 +244,9 @@ fun InputForm(onStateChange: (Boolean) -> Unit, modifier: Modifier = Modifier) {
                                     withContext(Dispatchers.Main) {
                                         if (result.msg == "ok") {
                                             onStateChange(true)
+                                            context.dataStore.edit { settings ->
+                                                settings[loginKey] = true
+                                            }
                                         } else {
                                             Toast.makeText(
                                                 context,
