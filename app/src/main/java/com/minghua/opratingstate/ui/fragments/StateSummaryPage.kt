@@ -59,11 +59,14 @@ fun StateSummary() {
                 times = it.times,
                 color = colorGroup,
                 data = it.lineData.map { l ->
-                    l.data.mapIndexed { index, d ->
+                    val points = l.data.mapIndexed { index, d ->
                         DataPoint(
                             index.toFloat(),
                             d.toFloat()
                         )
+                    }
+                    ArrayList<DataPoint>().apply {
+                        addAll(points)
                     }
                 }.toTypedArray(),
                 chartTitle = it.title

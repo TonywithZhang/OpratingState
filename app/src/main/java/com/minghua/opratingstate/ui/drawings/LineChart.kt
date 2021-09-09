@@ -19,10 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.madrapps.plot.line.DataPoint
 import com.minghua.opratingstate.utils.xCoordination
 import com.minghua.opratingstate.utils.yCoordination
-import kotlin.math.floor
-import kotlin.math.log
-import kotlin.math.pow
-import kotlin.math.roundToInt
+import kotlin.math.*
 
 /**
  * @param times 横轴的时间
@@ -53,9 +50,16 @@ fun LineChart(
         Canvas(modifier = Modifier.fillMaxSize()) {
             val height = size.height - 16.dp.toPx()
             val width = size.width
-            val maxValue = data.map { it.maxOf { d -> d.y } }.maxOf { f -> f }
+            var maxValue = data.map { it.maxOf { d -> d.y } }.maxOf { f -> f }
             data.forEachIndexed first@{ index, it ->
                 if (it.isEmpty()) return@first
+                if (chartTitle.contains("效率")) {
+                    maxValue = 0.2f
+                    val efficiencyData = it.map { d -> DataPoint(d.x, d.y - 0.8f) }
+                    val arrayList = it as ArrayList<DataPoint>
+                    arrayList.clear()
+                    arrayList.addAll(efficiencyData)
+                }
                 val path = Path()
                 path.moveTo(
                     xCoordination(width, it[0].x, it.size),
@@ -130,41 +134,52 @@ fun LineChart(
                 val yLabels: List<Int>
                 var power = floor(log(maxValue, 10f)).toInt()
                 var factor = maxValue / 10.0.pow(power.toDouble())
+                Log.d(TAG, "LineChart: $chartTitle : $factor")
                 if (factor < 4) {
                     factor *= 10
                     power -= 1
                     yLabels = (1..7).map {
-                        (factor / 8 * it).roundToInt() * 10.0.pow(power.toDouble()).toInt()
+                        (factor / 8 * it).roundToInt()
                     }
                 } else {
                     yLabels = (1..factor.toInt()).map {
-                        (factor / (factor.toInt() + 1) * it).roundToInt() * 10.0.pow(power.toDouble())
-                            .toInt()
+                        (factor / (factor.toInt() + 1) * it).roundToInt()
                     }
                 }
+                
                 val yPositions: List<Float> =
-                    yLabels.map { yCoordination(height, it.toFloat(), maxValue) }
-                if (!chartTitle.contains("效率")) {
-                    yLabels.forEachIndexed { yLabelIndex, yLabel ->
-                        drawLine(
-                            brush = Brush.horizontalGradient(
-                                listOf(
-                                    Color.LightGray,
-                                    Color.LightGray
+                    yLabels.map {
+                        yCoordination(
+                            height,
+                            it * 10.0.pow(power.toDouble()).toFloat(),
+                            maxValue
+                        )
+                    }
+                yLabels.forEachIndexed { yLabelIndex, yLabel ->
+                    drawLine(
+                        brush = Brush.horizontalGradient(
+                            listOf(
+                                Color.LightGray,
+                                Color.LightGray
+                            )
+                        ),
+                        start = Offset(0f, yPositions[yLabelIndex]),
+                        end = Offset(width, yPositions[yLabelIndex]),
+                        pathEffect = PathEffect.dashPathEffect(floatArrayOf(5f, 5f))
+                    )
+                    drawIntoCanvas {
+                        it.nativeCanvas.drawText(
+                            if (power >= 0) (yLabel * 10.0.pow(power.toDouble())
+                                .toInt()).toString() else String.format(
+                                "%.${abs(power)}f",
+                                (if (chartTitle.contains("效率")) yLabel + 80 else yLabel) * 10.0.pow(
+                                    power.toDouble()
                                 )
                             ),
-                            start = Offset(0f, yPositions[yLabelIndex]),
-                            end = Offset(width, yPositions[yLabelIndex]),
-                            pathEffect = PathEffect.dashPathEffect(floatArrayOf(5f, 5f))
+                            0f,
+                            yPositions[yLabelIndex],
+                            frameworkPaint
                         )
-                        drawIntoCanvas {
-                            it.nativeCanvas.drawText(
-                                yLabel.toString(),
-                                0f,
-                                yPositions[yLabelIndex],
-                                frameworkPaint
-                            )
-                        }
                     }
                 }
             }
