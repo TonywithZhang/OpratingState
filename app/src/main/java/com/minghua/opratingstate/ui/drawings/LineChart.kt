@@ -134,7 +134,6 @@ fun LineChart(
                 val yLabels: List<Int>
                 var power = floor(log(maxValue, 10f)).toInt()
                 var factor = maxValue / 10.0.pow(power.toDouble())
-                Log.d(TAG, "LineChart: $chartTitle : $factor")
                 if (factor < 4) {
                     factor *= 10
                     power -= 1
@@ -172,7 +171,8 @@ fun LineChart(
                             if (power >= 0) (yLabel * 10.0.pow(power.toDouble())
                                 .toInt()).toString() else String.format(
                                 "%.${abs(power)}f",
-                                (if (chartTitle.contains("效率")) yLabel + 80 else yLabel) * 10.0.pow(
+                                (if (chartTitle.contains("效率")) yLabel + 80
+                                else yLabel) * 10.0.pow(
                                     power.toDouble()
                                 )
                             ),
