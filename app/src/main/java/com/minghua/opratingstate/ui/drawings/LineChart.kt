@@ -1,7 +1,9 @@
 package com.minghua.opratingstate.ui.drawings
 
+import android.content.ContentValues.TAG
 import android.graphics.Path
 import android.graphics.PointF
+import android.util.Log
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -69,6 +71,10 @@ fun LineChart(
                     controlX = xCoordination(width, dataPoint.x, it.size)
                     controlY = yCoordination(height, dataPoint.y, maxValue)
                 }
+                path.lineTo(
+                    xCoordination(width, it[it.size - 1].x, it.size),
+                    yCoordination(height, it[it.size - 1].y, maxValue)
+                )
                 drawPath(
                     path.asComposePath(),
                     color = color[index],

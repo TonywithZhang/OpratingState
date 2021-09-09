@@ -15,7 +15,7 @@ val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.CHINA).apply {
 }
 
 fun xCoordination(width: Float, x: Float, totalCount: Int): Float {
-    return x * (width / totalCount)
+    return width * (x / (totalCount - 1))
 }
 
 fun yCoordination(height: Float, y: Float, maxValue: Float): Float {
