@@ -56,7 +56,6 @@ fun StateSummary() {
         mutableStateOf("")
     }
     LaunchedEffect(key1 = currentDate.value) {
-        Log.d(TAG, "StateSummary: 任务执行一次")
         val result = ArrayList<LocalRoofStateModel>()
         val produce1: Long
         val produce2: Long
@@ -162,6 +161,7 @@ fun StateSummary() {
                             addAll(points)
                         }
                     }.toTypedArray(),
+                    legends = it.lineData.map { l -> l.name },
                     chartTitle = it.title
                 )
             }
@@ -191,6 +191,6 @@ fun PreviewStateSummary() {
     }
     Surface(modifier = Modifier.fillMaxSize()) {
         //StateSummary()
-        LineChart(times = times, color = listOf(Color.Red), chartData, chartTitle = "直流输入电压对比")
+        LineChart(times = times, color = listOf(Color.Red), chartData, chartTitle = "直流输入电压对比",legends = listOf("PV1"))
     }
 }
