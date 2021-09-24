@@ -46,10 +46,9 @@ fun LineChart(
     chartTitle: String = ""
 ) {
     if (times.isEmpty()) return
-
-
+    //数据初始化，只运行一次
     LaunchedEffect(Unit) {
-        if (chartTitle.contains("效率")){
+        if (chartTitle.contains("效率")) {
             data.forEach {
                 val efficiencyData = it.map { d -> DataPoint(d.x, d.y - 0.8f) }
                 val arrayList = it as ArrayList<DataPoint>
@@ -287,10 +286,21 @@ fun LineChart(
                     textSize = 12.dp.toPx()
                 }
                 drawIntoCanvas {
-                    it.nativeCanvas.drawText(detailTime,topLeft.x + 10f,topLeft.y + 10.dp.toPx(),frameworkPaint)
+                    it.nativeCanvas.drawText(
+                        detailTime,
+                        topLeft.x + 10f,
+                        topLeft.y + 10.dp.toPx(),
+                        frameworkPaint
+                    )
+
                     detailValues.forEachIndexed { index, _ ->
                         frameworkPaint.color = color[index].toArgb()
-                        it.nativeCanvas.drawText("${legends[index]}：${detailValues[index].y}",topLeft.x + 10f,topLeft.y + (10 + 14 * (index+ 1)).dp.toPx(),frameworkPaint)
+                        it.nativeCanvas.drawText(
+                            "${legends[index]}：${detailValues[index].y}",
+                            topLeft.x + 10f,
+                            topLeft.y + (10 + 14 * (index + 1)).dp.toPx(),
+                            frameworkPaint
+                        )
                     }
                 }
             }

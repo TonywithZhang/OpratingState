@@ -6,6 +6,8 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.minghua.opratingstate.R
+import com.minghua.opratingstate.models.ProjectItemModel
 import com.minghua.opratingstate.ui.theme.Teal200
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,3 +27,16 @@ fun yCoordination(height: Float, y: Float, maxValue: Float): Float {
 val colorGroup = listOf(Color.Red, Teal200)
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
+
+//首页顶部的电站选择的项目
+
+val  items = listOf(
+    ProjectItemModel("创谷E栋屋顶", R.drawable.ic_device),
+    ProjectItemModel("x屋顶", R.drawable.ic_device),
+    ProjectItemModel("x屋顶", R.drawable.ic_device),
+    ProjectItemModel("x屋顶", R.drawable.ic_device),
+    ProjectItemModel("x屋顶", R.drawable.ic_device),
+    ProjectItemModel("x屋顶", R.drawable.ic_device),
+    ProjectItemModel("x屋顶", R.drawable.ic_device),
+    ProjectItemModel("x屋顶", R.drawable.ic_device)
+)

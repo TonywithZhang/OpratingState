@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.animation.core.tween
@@ -28,11 +29,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.airbnb.lottie.compose.*
+import com.google.accompanist.navigation.animation.navigation
+import com.google.accompanist.navigation.animation.AnimatedNavHost
+import com.google.accompanist.navigation.animation.composable
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.minghua.opratingstate.network.repositories.loginNetwork
+import com.minghua.opratingstate.ui.fragments.PropertyNavigation
 import com.minghua.opratingstate.ui.fragments.StateSummary
 import com.minghua.opratingstate.ui.theme.OpratingStateTheme
 import com.minghua.opratingstate.utils.dataStore
@@ -43,11 +46,11 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.Exception
 
 val loginKey = booleanPreferencesKey("login_state")
 
 class MainActivity : ComponentActivity() {
+    @ExperimentalAnimationApi
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,24 +65,15 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@ExperimentalAnimationApi
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainPage(modifier: Modifier = Modifier) {
     val loginStateFlow : Flow<Boolean> = LocalContext.current.dataStore.data.map { preference -> preference[loginKey] ?: false }
     var loginState by remember { mutableStateOf(false) }
-    LaunchedEffect(0){
-        loginStateFlow.collect { loginState = it }
-    }
-    val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "main") {
-        composable("main") {
-            if (loginState) StateSummary()
-            else LogInView(onStateChange = { loginState = it })
-        }
-        composable("others") {
-
-        }
-    }
+    LaunchedEffect(0) { loginStateFlow.collect { loginState = it } }
+    if (loginState) PropertyNavigation()
+    else LogInView(onStateChange = { loginState = it })
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
