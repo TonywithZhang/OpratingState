@@ -29,8 +29,10 @@ import com.minghua.opratingstate.R
 import com.minghua.opratingstate.models.LocalRoofStateModel
 import com.minghua.opratingstate.network.repositories.localRoofRepo
 import com.minghua.opratingstate.ui.drawings.LineChart
+import com.minghua.opratingstate.utils.chartData
 import com.minghua.opratingstate.utils.colorGroup
 import com.minghua.opratingstate.utils.dateFormatter
+import com.minghua.opratingstate.utils.times
 import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.datetime.date.datepicker
 import kotlinx.coroutines.Dispatchers
@@ -173,22 +175,7 @@ fun StateSummary() {
 @Preview
 @Composable
 fun PreviewStateSummary() {
-    val times = ArrayList<String>().apply {
-        val baseTime = GregorianCalendar.getInstance()
-        val dateFormat = SimpleDateFormat("HH:mm:ss", Locale.CHINA).apply {
-            timeZone = TimeZone.getTimeZone("Asia/Shanghai")
-        }
-        for (index in 0 until 100) {
-            baseTime.add(Calendar.MINUTE, 1)
-            add(dateFormat.format(baseTime.time))
-        }
-    }
-    val chartData = ArrayList<DataPoint>().apply {
-        for (index in 0 until 100) {
-            val r = Random(System.currentTimeMillis())
-            add(DataPoint(index.toFloat(), (5 * index - r.nextInt(10)).toFloat()))
-        }
-    }
+
     Surface(modifier = Modifier.fillMaxSize()) {
         //StateSummary()
         LineChart(times = times, color = listOf(Color.Red), chartData, chartTitle = "直流输入电压对比",legends = listOf("PV1"))

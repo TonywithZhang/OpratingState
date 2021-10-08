@@ -10,4 +10,7 @@ import retrofit2.http.Query
 interface LocalRoofStateService {
     @GET("local_message")
     suspend fun localRoofStates(@Query("time")time : String?): LocalRoofSum
+
+    @GET("local_power")
+    suspend fun localRoofPower(): LocalRoofStateModel
 }

@@ -4,6 +4,7 @@ import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,6 +23,6 @@ fun ProjectItem(@DrawableRes iconId: Int,name: String,modifier: Modifier = Modif
             contentScale = ContentScale.Fit,
             modifier = Modifier.padding(5.dp)
         )
-        Text(text = name)
+        Text(text = name,maxLines = 1,style = MaterialTheme.typography.subtitle1)
     }
 }

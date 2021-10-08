@@ -6,6 +6,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.madrapps.plot.line.DataPoint
 import com.minghua.opratingstate.R
 import com.minghua.opratingstate.models.ProjectItemModel
 import com.minghua.opratingstate.ui.theme.Teal200
@@ -40,3 +41,22 @@ val  items = listOf(
     ProjectItemModel("x屋顶", R.drawable.ic_device),
     ProjectItemModel("x屋顶", R.drawable.ic_device)
 )
+
+val times = ArrayList<String>().apply {
+    val baseTime = GregorianCalendar.getInstance()
+    val dateFormat = SimpleDateFormat("HH:mm:ss", Locale.CHINA).apply {
+        timeZone = TimeZone.getTimeZone("Asia/Shanghai")
+    }
+    for (index in 0 until 100) {
+        baseTime.add(Calendar.MINUTE, 1)
+        add(dateFormat.format(baseTime.time))
+    }
+}
+val chartData = ArrayList<DataPoint>().apply {
+    for (index in 0 until 100) {
+        val r = Random(System.currentTimeMillis())
+        add(DataPoint(index.toFloat(), (5 * index - r.nextInt(10)).toFloat()))
+    }
+}
+
+val timeSpec = listOf("日","月","年")
