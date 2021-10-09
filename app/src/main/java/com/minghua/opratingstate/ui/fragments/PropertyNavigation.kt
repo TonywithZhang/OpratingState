@@ -1,5 +1,7 @@
 package com.minghua.opratingstate.ui.fragments
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize
@@ -61,7 +63,13 @@ fun PropertyNavigation() {
         }) {
 
         AnimatedNavHost(navController = navController, startDestination = "main") {
-            composable("main") {
+            composable("main",enterTransition = {
+                initial, target ->
+                EnterTransition.None
+            },exitTransition = {
+                initial, target ->
+                ExitTransition.None
+            }) {
                 LandScape()
             }
             composable("log") {

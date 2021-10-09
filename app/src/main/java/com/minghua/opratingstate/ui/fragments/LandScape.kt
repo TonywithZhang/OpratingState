@@ -1,17 +1,14 @@
 package com.minghua.opratingstate.ui.fragments
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.ButtonDefaults.buttonColors
 import androidx.compose.material.ButtonDefaults.elevation
@@ -29,17 +26,15 @@ import com.madrapps.plot.line.DataPoint
 import com.minghua.opratingstate.R
 import com.minghua.opratingstate.models.LineData
 import com.minghua.opratingstate.models.LocalRoofStateModel
-import com.minghua.opratingstate.models.LocalRoofSum
 import com.minghua.opratingstate.network.repositories.localRoofRepo
 import com.minghua.opratingstate.ui.drawings.LineChart
 import com.minghua.opratingstate.ui.drawings.ProgressCircle
 import com.minghua.opratingstate.ui.drawings.StatisticsPresenter
-import com.minghua.opratingstate.utils.chartData
+import com.minghua.opratingstate.utils.lineChartData
 import com.minghua.opratingstate.utils.colorGroup
 import com.minghua.opratingstate.utils.items
 import com.minghua.opratingstate.utils.times
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import java.lang.Exception
 
@@ -50,7 +45,7 @@ fun LandScape(userName: String = "") {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .scrollable(scrollState, orientation = Orientation.Vertical)
+            .verticalScroll(scrollState)
     ) {
         Row(
             modifier = Modifier
@@ -64,7 +59,7 @@ fun LandScape(userName: String = "") {
         }
         FlowRow(
             modifier = Modifier.fillMaxWidth(),
-            mainAxisAlignment = FlowMainAxisAlignment.SpaceBetween
+            mainAxisAlignment = FlowMainAxisAlignment.SpaceAround
         ) {
             items.forEachIndexed loop@{ index, itemModel ->
                 if (index >= 7) return@loop
@@ -107,7 +102,7 @@ fun LandScape(userName: String = "") {
                 Text(text = "6.45/200")
             }
         }
-        var refreshCount by remember { mutableStateOf(0) }
+        var refreshCount by remember { mutableStateOf(1) }
         var loadingData by remember { mutableStateOf(false) }
         val rotateAnimation = rememberInfiniteTransition()
         val rotate = rotateAnimation.animateFloat(
@@ -156,7 +151,7 @@ fun LandScape(userName: String = "") {
                 LocalRoofStateModel(
                     listOf(
                         LineData(
-                            chartData.map { c -> c.y.toDouble() },
+                            lineChartData.map { c -> c.y.toDouble() },
                             "功率",
                             "line"
                         )
@@ -178,19 +173,20 @@ fun LandScape(userName: String = "") {
             }
         }
         AnimatedVisibility(visible = refreshCount != 0) {
-            LineChart(
-                times = currentData.times,
-                color = colorGroup,
-                data = currentData.lineData.map { l ->
-                    l.data.mapIndexed { d, index ->
-                        DataPoint(
-                            index.toFloat(),
-                            d.toFloat()
-                        )
-                    }
-                }.toTypedArray(),
-                legends = listOf("发电功率","预测功率")
-            )
+//            LineChart(
+//                times = currentData.times,
+//                color = colorGroup,
+//                data = currentData.lineData.map { l ->
+//                    l.data.mapIndexed { d, index ->
+//                        DataPoint(
+//                            index.toFloat(),
+//                            d.toFloat()
+//                        )
+//                    }
+//                }.toTypedArray(),
+//                legends = listOf("发电功率","预测功率")
+//            )
+            LineChart(times = times, color = colorGroup, lineChartData, chartTitle = "直流输入电压对比",legends = listOf("PV1"))
         }
         Row(
             Modifier
@@ -210,6 +206,7 @@ fun LandScape(userName: String = "") {
             )
         }
         StatisticsPresenter()
+        Spacer(modifier = Modifier.height(100.dp))
     }
 }
 

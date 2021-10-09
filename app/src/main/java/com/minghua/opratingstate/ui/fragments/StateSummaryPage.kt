@@ -1,22 +1,17 @@
 package com.minghua.opratingstate.ui.fragments
 
-import android.content.ContentValues.TAG
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.Icon
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material.icons.materialIcon
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -29,17 +24,15 @@ import com.minghua.opratingstate.R
 import com.minghua.opratingstate.models.LocalRoofStateModel
 import com.minghua.opratingstate.network.repositories.localRoofRepo
 import com.minghua.opratingstate.ui.drawings.LineChart
-import com.minghua.opratingstate.utils.chartData
+import com.minghua.opratingstate.utils.lineChartData
 import com.minghua.opratingstate.utils.colorGroup
 import com.minghua.opratingstate.utils.dateFormatter
 import com.minghua.opratingstate.utils.times
 import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.datetime.date.datepicker
+import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
@@ -74,11 +67,12 @@ fun StateSummary() {
             p2 = "$produce2 kWh"
         }
     }
-    val dialog = remember { MaterialDialog() }
-    dialog.build(buttons = {
+    val dialogState = rememberMaterialDialogState()
+    MaterialDialog(buttons = {
         positiveButton("Ok")
         negativeButton("Cancel")
-    }) {
+    },
+    dialogState = dialogState) {
         datepicker { date ->
             currentDate.value = date.format(DateTimeFormatter.ISO_DATE)
         }
@@ -127,7 +121,7 @@ fun StateSummary() {
                     modifier = Modifier
                         .fillMaxWidth(0.5f)
                         .fillMaxHeight()
-                        .clickable { dialog.show() },
+                        .clickable { dialogState.show() },
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.Start,
                 ) {
@@ -178,6 +172,6 @@ fun PreviewStateSummary() {
 
     Surface(modifier = Modifier.fillMaxSize()) {
         //StateSummary()
-        LineChart(times = times, color = listOf(Color.Red), chartData, chartTitle = "直流输入电压对比",legends = listOf("PV1"))
+        LineChart(times = times, color = listOf(Color.Red), lineChartData, chartTitle = "直流输入电压对比",legends = listOf("PV1"))
     }
 }

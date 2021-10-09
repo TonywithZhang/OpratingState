@@ -8,6 +8,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.madrapps.plot.line.DataPoint
 import com.minghua.opratingstate.R
+import com.minghua.opratingstate.models.BarChartDataModel
 import com.minghua.opratingstate.models.ProjectItemModel
 import com.minghua.opratingstate.ui.theme.Teal200
 import java.text.SimpleDateFormat
@@ -25,7 +26,7 @@ fun yCoordination(height: Float, y: Float, maxValue: Float): Float {
     return height - y * (height / maxValue) * 0.95f
 }
 
-val colorGroup = listOf(Color.Red, Teal200)
+val colorGroup = listOf(Color(0xff00ffcc),Color.Red, Teal200)
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
@@ -52,7 +53,7 @@ val times = ArrayList<String>().apply {
         add(dateFormat.format(baseTime.time))
     }
 }
-val chartData = ArrayList<DataPoint>().apply {
+val lineChartData = ArrayList<DataPoint>().apply {
     for (index in 0 until 100) {
         val r = Random(System.currentTimeMillis())
         add(DataPoint(index.toFloat(), (5 * index - r.nextInt(10)).toFloat()))
@@ -60,3 +61,13 @@ val chartData = ArrayList<DataPoint>().apply {
 }
 
 val timeSpec = listOf("日","月","年")
+
+val barModels = listOf(
+    BarChartDataModel("9.5", 9.5f),
+    BarChartDataModel("9.6", 9.6f),
+    BarChartDataModel("9.7", 9.7f),
+    BarChartDataModel("9.8", 9.8f),
+    BarChartDataModel("9.9", 9.9f),
+    BarChartDataModel("9.10", 9.1f),
+    BarChartDataModel("9.11", 9.2f)
+)
