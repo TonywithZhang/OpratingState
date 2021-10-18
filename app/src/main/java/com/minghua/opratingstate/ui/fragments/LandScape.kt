@@ -1,5 +1,7 @@
 package com.minghua.opratingstate.ui.fragments
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.*
@@ -27,6 +29,7 @@ import com.minghua.opratingstate.R
 import com.minghua.opratingstate.models.LineData
 import com.minghua.opratingstate.models.LocalRoofStateModel
 import com.minghua.opratingstate.network.repositories.localRoofRepo
+import com.minghua.opratingstate.ui.drawings.DetailProjectItem
 import com.minghua.opratingstate.ui.drawings.LineChart
 import com.minghua.opratingstate.ui.drawings.ProgressCircle
 import com.minghua.opratingstate.ui.drawings.StatisticsPresenter
@@ -34,10 +37,14 @@ import com.minghua.opratingstate.utils.lineChartData
 import com.minghua.opratingstate.utils.colorGroup
 import com.minghua.opratingstate.utils.items
 import com.minghua.opratingstate.utils.times
+import com.vanpra.composematerialdialogs.MaterialDialog
+import com.vanpra.composematerialdialogs.listItems
+import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.lang.Exception
 
+@RequiresApi(Build.VERSION_CODES.O)
 @ExperimentalAnimationApi
 @Composable
 fun LandScape(userName: String = "") {
@@ -57,6 +64,12 @@ fun LandScape(userName: String = "") {
         ) {
             Text(text = "资产概览", style = MaterialTheme.typography.h5)
         }
+        val dialogState = rememberMaterialDialogState()
+        MaterialDialog(dialogState = dialogState) {
+           listItems(list = items,onClick = {index, item ->  }) { index,item ->
+               DetailProjectItem(model = item)
+           }
+        }
         FlowRow(
             modifier = Modifier.fillMaxWidth(),
             mainAxisAlignment = FlowMainAxisAlignment.SpaceAround
@@ -71,7 +84,7 @@ fun LandScape(userName: String = "") {
             }
             if (items.size >= 8)
                 Button(
-                    onClick = {},
+                    onClick = {dialogState.show()},
                     colors = buttonColors(backgroundColor = Color.Transparent),
                     elevation = elevation(0.dp)
                 ) {
@@ -102,7 +115,10 @@ fun LandScape(userName: String = "") {
                 Text(text = "6.45/200")
             }
         }
-        var refreshCount by remember { mutableStateOf(1) }
+        var refreshCount by remember { mutableStateOf(0) }
+        var showLineChart by remember {
+            mutableStateOf(false)
+        }
         var loadingData by remember { mutableStateOf(false) }
         val rotateAnimation = rememberInfiniteTransition()
         val rotate = rotateAnimation.animateFloat(
@@ -139,13 +155,6 @@ fun LandScape(userName: String = "") {
                     .rotate(if (loadingData) rotate.value else 0f)
             )
         }
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .padding(top = 10.dp), horizontalArrangement = Arrangement.Center
-        ) {
-            Text(text = "实时功率：3400W")
-        }
         var currentData by remember {
             mutableStateOf(
                 LocalRoofStateModel(
@@ -159,6 +168,15 @@ fun LandScape(userName: String = "") {
                 )
             )
         }
+        var currentPower by remember{ mutableStateOf(0)}
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .padding(top = 10.dp), horizontalArrangement = Arrangement.Center
+        ) {
+            Text(text = "实时功率：$currentPower W")
+        }
+
 
         LaunchedEffect(key1 = refreshCount) {
             try {
@@ -166,27 +184,31 @@ fun LandScape(userName: String = "") {
                     val result = localRoofRepo().localRoofPower()
                     withContext(Dispatchers.Main) {
                         currentData = result
+                        loadingData = false
+                        showLineChart = true
+                        if (result.lineData.all { l -> l.data.isNotEmpty() })
+                        currentPower = result.lineData.sumOf { l -> l.data[l.data.size - 1] }.toInt()
                     }
                 }
             } catch (ex: Exception) {
                 ex.printStackTrace()
             }
         }
-        AnimatedVisibility(visible = refreshCount != 0) {
-//            LineChart(
-//                times = currentData.times,
-//                color = colorGroup,
-//                data = currentData.lineData.map { l ->
-//                    l.data.mapIndexed { d, index ->
-//                        DataPoint(
-//                            index.toFloat(),
-//                            d.toFloat()
-//                        )
-//                    }
-//                }.toTypedArray(),
-//                legends = listOf("发电功率","预测功率")
-//            )
-            LineChart(times = times, color = colorGroup, lineChartData, chartTitle = "直流输入电压对比",legends = listOf("PV1"))
+        AnimatedVisibility(visible = showLineChart) {
+            LineChart(
+                times = currentData.times,
+                color = colorGroup,
+                data = currentData.lineData.map { l ->
+                    l.data.mapIndexed { index,d ->
+                        DataPoint(
+                            index.toFloat(),
+                            d.toFloat()
+                        )
+                    }
+                }.toTypedArray(),
+                legends = listOf("发电功率","预测功率")
+            )
+//            LineChart(times = times, color = colorGroup, lineChartData, chartTitle = "直流输入电压对比",legends = listOf("PV1"))
         }
         Row(
             Modifier
@@ -210,6 +232,7 @@ fun LandScape(userName: String = "") {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @ExperimentalAnimationApi
 @Preview(showBackground = true)
 @Composable

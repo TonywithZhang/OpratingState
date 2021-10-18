@@ -33,14 +33,14 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "se
 //首页顶部的电站选择的项目
 
 val  items = listOf(
-    ProjectItemModel("创谷E栋屋顶", R.drawable.ic_device),
-    ProjectItemModel("x屋顶", R.drawable.ic_device),
-    ProjectItemModel("x屋顶", R.drawable.ic_device),
-    ProjectItemModel("x屋顶", R.drawable.ic_device),
-    ProjectItemModel("x屋顶", R.drawable.ic_device),
-    ProjectItemModel("x屋顶", R.drawable.ic_device),
-    ProjectItemModel("x屋顶", R.drawable.ic_device),
-    ProjectItemModel("x屋顶", R.drawable.ic_device)
+    ProjectItemModel("创谷E栋屋顶", R.drawable.ic_device,12,1),
+    ProjectItemModel("x屋顶", R.drawable.ic_device,12,1),
+    ProjectItemModel("x屋顶", R.drawable.ic_device,12,1),
+    ProjectItemModel("x屋顶", R.drawable.ic_device,12,1),
+    ProjectItemModel("x屋顶", R.drawable.ic_device,12,1),
+    ProjectItemModel("x屋顶", R.drawable.ic_device,12,1),
+    ProjectItemModel("x屋顶", R.drawable.ic_device,12,1),
+    ProjectItemModel("x屋顶", R.drawable.ic_device,12,1)
 )
 
 val times = ArrayList<String>().apply {

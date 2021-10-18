@@ -267,24 +267,34 @@ fun LineChart(
                     }
                     else -> Offset(0f, 0f)
                 }
+                //初始化写入文字要用到的画笔
+                frameworkPaint.run {
+                    this.color = Color.Blue.toArgb()
+                    textSize = 12.dp.toPx()
+                }
+                //创建所有要显示的具体信息
+                val messages = legends.mapIndexed { index, s ->
+                    "$s：${detailValues[index].y}"
+                }
+                //计算信息框的宽度，长度
+                val messageBoxWidth = messages.maxOf { m -> frameworkPaint.measureText(m) } + 30f
+                val messageBoxHeight = (15 + 15 * data.size).dp.toPx()
+                //画出信息框
                 drawRoundRect(
                     Color.White,
                     topLeft = topLeft,
-                    size = Size(200f, (15 + 15 * data.size).dp.toPx()),
+                    size = Size(messageBoxWidth, messageBoxHeight),
                     cornerRadius = CornerRadius(25f, 25f),
                     style = androidx.compose.ui.graphics.drawscope.Fill
                 )
                 drawRoundRect(
                     Color.Blue,
                     topLeft = topLeft,
-                    size = Size(200f, (15 + 15 * data.size).dp.toPx()),
+                    size = Size(messageBoxWidth, messageBoxHeight),
                     cornerRadius = CornerRadius(25f, 25f),
                     style = Stroke(width = 1f)
                 )
-                frameworkPaint.run {
-                    this.color = Color.Blue.toArgb()
-                    textSize = 12.dp.toPx()
-                }
+
                 drawIntoCanvas {
                     it.nativeCanvas.drawText(
                         detailTime,
@@ -296,7 +306,7 @@ fun LineChart(
                     detailValues.forEachIndexed { index, _ ->
                         frameworkPaint.color = color[index].toArgb()
                         it.nativeCanvas.drawText(
-                            "${legends[index]}：${detailValues[index].y}",
+                            messages[index],
                             topLeft.x + 10f,
                             topLeft.y + (10 + 14 * (index + 1)).dp.toPx(),
                             frameworkPaint

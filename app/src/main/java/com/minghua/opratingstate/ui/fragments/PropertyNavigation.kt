@@ -1,5 +1,7 @@
 package com.minghua.opratingstate.ui.fragments
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -31,6 +33,7 @@ val bottomNavigationModels = listOf(
     BottomNavigationModel("我的", R.drawable.baseline_account_circle_black_24dp, "user")
 )
 
+@RequiresApi(Build.VERSION_CODES.O)
 @ExperimentalAnimationApi
 @Composable
 fun PropertyNavigation() {
@@ -72,13 +75,31 @@ fun PropertyNavigation() {
             }) {
                 LandScape()
             }
-            composable("log") {
+            composable("log",enterTransition = {
+                    initial, target ->
+                EnterTransition.None
+            },exitTransition = {
+                    initial, target ->
+                ExitTransition.None
+            }) {
                 LogPage()
             }
-            composable("message") {
+            composable("message",enterTransition = {
+                    initial, target ->
+                EnterTransition.None
+            },exitTransition = {
+                    initial, target ->
+                ExitTransition.None
+            }) {
                 MessagePage()
             }
-            composable("user"){
+            composable("user",enterTransition = {
+                    initial, target ->
+                EnterTransition.None
+            },exitTransition = {
+                    initial, target ->
+                ExitTransition.None
+            }){
                 UserPage()
             }
         }
@@ -86,6 +107,7 @@ fun PropertyNavigation() {
 
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @ExperimentalAnimationApi
 @Preview(showBackground = true)
 @Composable

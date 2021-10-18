@@ -1,6 +1,8 @@
 package com.minghua.opratingstate.ui.drawings
 
 import android.graphics.Paint
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -16,6 +18,7 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
@@ -28,6 +31,7 @@ import com.minghua.opratingstate.utils.barModels
 import com.minghua.opratingstate.utils.timeSpec
 import com.minghua.opratingstate.utils.times
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun StatisticsPresenter() {
     var index by remember {
@@ -68,9 +72,7 @@ fun StatisticsPresenter() {
                         3.dp.toPx(),
                         androidx.compose.ui.graphics.Paint().apply {
                             color = Color.White
-                            asFrameworkPaint().run {
-                                setShadowLayer(5f,1.dp.toPx(),1.dp.toPx(),0xFF888888)
-                            }
+                            asFrameworkPaint().setShadowLayer(5f,1.dp.toPx(),1.dp.toPx(),0x888888)
                         })
 //                    timeSpec.forEachIndexed { indexed, time ->
 //                        it.nativeCanvas.drawText(
@@ -102,6 +104,7 @@ fun StatisticsPresenter() {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true)
 @Composable
 fun PreviewStatisticsPresenter() {
