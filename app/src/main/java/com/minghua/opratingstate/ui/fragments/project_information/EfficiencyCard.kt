@@ -19,7 +19,7 @@ fun EfficiencyCard() {
         horizontalArrangement = Arrangement.SpaceAround,
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(15))
+            .clip(RoundedCornerShape(5))
             .background(Color.White)
             .padding(vertical = 10.dp)
     ) {
@@ -55,7 +55,7 @@ fun EfficiencyCard() {
 @Preview
 @Composable
 fun PreviewEfficiencyCard() {
-    androidx.compose.material.Surface {
+    Surface {
         EfficiencyCard()
     }
 }

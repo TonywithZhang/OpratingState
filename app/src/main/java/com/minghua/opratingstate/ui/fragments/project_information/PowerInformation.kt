@@ -22,7 +22,7 @@ import com.minghua.opratingstate.ui.fragments.ProjectItem
 fun PowerInformation() {
     Card(
         elevation = 0.dp,
-        shape = RoundedCornerShape(15),
+        shape = RoundedCornerShape(5),
         modifier = Modifier
             .fillMaxWidth()
             .aspectRatio(1.618f)

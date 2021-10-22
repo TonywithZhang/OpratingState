@@ -23,7 +23,7 @@ fun ConverterEfficiency(){
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(15))
+            .clip(RoundedCornerShape(5))
             .background(Color.White)
             .padding(3.dp)
     ) {

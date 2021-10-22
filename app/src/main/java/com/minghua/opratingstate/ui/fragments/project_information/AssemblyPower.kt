@@ -22,7 +22,7 @@ fun AssemblyPower(){
         verticalArrangement = Arrangement.Top,
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(15))
+            .clip(RoundedCornerShape(5))
             .background(Color.White)
             .padding(5.dp)) {
         Row(Modifier.fillMaxWidth(),horizontalArrangement = Arrangement.Center) {
