@@ -22,6 +22,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHost
+import androidx.navigation.NavHostController
 import com.google.accompanist.flowlayout.FlowMainAxisAlignment
 import com.google.accompanist.flowlayout.FlowRow
 import com.madrapps.plot.line.DataPoint
@@ -47,7 +49,7 @@ import java.lang.Exception
 @RequiresApi(Build.VERSION_CODES.O)
 @ExperimentalAnimationApi
 @Composable
-fun LandScape(userName: String = "") {
+fun LandScape(userName: String = "", navController: NavHostController?) {
     val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
@@ -66,9 +68,11 @@ fun LandScape(userName: String = "") {
         }
         val dialogState = rememberMaterialDialogState()
         MaterialDialog(dialogState = dialogState) {
-           listItems(list = items,onClick = {index, item ->  }) { index,item ->
-               DetailProjectItem(model = item)
-           }
+            listItems(
+                list = items,
+                onClick = { _, item -> navController?.navigate("detailItem/${item.name}") }) { _, item ->
+                DetailProjectItem(model = item)
+            }
         }
         FlowRow(
             modifier = Modifier.fillMaxWidth(),
@@ -79,12 +83,14 @@ fun LandScape(userName: String = "") {
                 ProjectItem(
                     iconId = itemModel.iconId,
                     name = itemModel.name,
-                    modifier = Modifier.fillMaxWidth(0.22f)
+                    modifier = Modifier
+                        .fillMaxWidth(0.22f)
+                        .clickable { navController?.navigate("detailItem/${itemModel.name}") }
                 )
             }
             if (items.size >= 8)
                 Button(
-                    onClick = {dialogState.show()},
+                    onClick = { dialogState.show() },
                     colors = buttonColors(backgroundColor = Color.Transparent),
                     elevation = elevation(0.dp)
                 ) {
@@ -168,7 +174,7 @@ fun LandScape(userName: String = "") {
                 )
             )
         }
-        var currentPower by remember{ mutableStateOf(0)}
+        var currentPower by remember { mutableStateOf(0) }
         Row(
             Modifier
                 .fillMaxWidth()
@@ -187,7 +193,8 @@ fun LandScape(userName: String = "") {
                         loadingData = false
                         showLineChart = true
                         if (result.lineData.all { l -> l.data.isNotEmpty() })
-                        currentPower = result.lineData.sumOf { l -> l.data[l.data.size - 1] }.toInt()
+                            currentPower =
+                                result.lineData.sumOf { l -> l.data[l.data.size - 1] }.toInt()
                     }
                 }
             } catch (ex: Exception) {
@@ -199,14 +206,14 @@ fun LandScape(userName: String = "") {
                 times = currentData.times,
                 color = colorGroup,
                 data = currentData.lineData.map { l ->
-                    l.data.mapIndexed { index,d ->
+                    l.data.mapIndexed { index, d ->
                         DataPoint(
                             index.toFloat(),
                             d.toFloat()
                         )
                     }
                 }.toTypedArray(),
-                legends = listOf("发电功率","预测功率")
+                legends = listOf("发电功率", "预测功率")
             )
 //            LineChart(times = times, color = colorGroup, lineChartData, chartTitle = "直流输入电压对比",legends = listOf("PV1"))
         }
@@ -237,5 +244,5 @@ fun LandScape(userName: String = "") {
 @Preview(showBackground = true)
 @Composable
 fun LandScapePreview() {
-    LandScape()
+    LandScape(userName = "长阳创谷E栋屋顶", null)
 }

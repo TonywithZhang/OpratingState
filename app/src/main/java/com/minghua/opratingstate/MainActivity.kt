@@ -1,5 +1,6 @@
 package com.minghua.opratingstate
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
@@ -65,13 +66,16 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@SuppressLint("FlowOperatorInvokedInComposition")
 @ExperimentalAnimationApi
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainPage(modifier: Modifier = Modifier) {
     val loginStateFlow : Flow<Boolean> = LocalContext.current.dataStore.data.map { preference -> preference[loginKey] ?: false }
     var loginState by remember { mutableStateOf(false) }
-    LaunchedEffect(0) { loginStateFlow.collect { loginState = it } }
+    LaunchedEffect(0) {
+        loginStateFlow.collect { loginState = it }
+    }
     if (loginState) PropertyNavigation()
     else LogInView(onStateChange = { loginState = it })
 }

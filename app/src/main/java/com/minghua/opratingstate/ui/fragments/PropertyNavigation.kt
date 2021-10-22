@@ -73,7 +73,7 @@ fun PropertyNavigation() {
                 initial, target ->
                 ExitTransition.None
             }) {
-                LandScape()
+                LandScape(userName = "长阳创谷E栋屋顶",navController = navController)
             }
             composable("log",enterTransition = {
                     initial, target ->
@@ -101,6 +101,15 @@ fun PropertyNavigation() {
                 ExitTransition.None
             }){
                 UserPage()
+            }
+            composable("detailItem/{name}",enterTransition = {
+                    initial, target ->
+                EnterTransition.None
+            },exitTransition = {
+                    initial, target ->
+                ExitTransition.None
+            }){
+                ProjectInformation(navController,it.arguments?.getString("name") ?: "长阳创谷E栋屋顶")
             }
         }
     }
