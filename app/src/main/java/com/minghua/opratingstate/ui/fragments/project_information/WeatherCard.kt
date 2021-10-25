@@ -36,7 +36,7 @@ fun WeatherCard() {
         )
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier.fillMaxSize().background(Color(0xaa000000)),
+            modifier = Modifier.fillMaxSize().background(Color(0x88888888)),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row(
@@ -48,7 +48,8 @@ fun WeatherCard() {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_sunny),
                     contentDescription = null,
-                    modifier = Modifier.size(25.dp)
+                    modifier = Modifier.size(25.dp),
+                    tint = Color.White
                 )
                 Text("晴，32℃", color = Color.White, style = MaterialTheme.typography.subtitle1)
             }

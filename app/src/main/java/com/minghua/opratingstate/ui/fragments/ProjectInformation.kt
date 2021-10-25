@@ -29,7 +29,7 @@ fun ProjectInformation(controller: NavHostController?,name: String) {
         LocationInformation(location = "中国上海市杨浦区长阳路1687号长阳创谷")
         CapacityInformation()
         WeatherCard()
-        PowerInformation()
+        PowerInformation(controller)
         EfficiencyCard()
         AssemblyPower()
         ElectricPower()

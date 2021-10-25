@@ -15,11 +15,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.minghua.opratingstate.R
 import com.minghua.opratingstate.ui.fragments.ProjectItem
 
 @Composable
-fun PowerInformation() {
+fun PowerInformation(controller: NavHostController?) {
     Card(
         elevation = 0.dp,
         shape = RoundedCornerShape(5),
@@ -46,7 +47,7 @@ fun PowerInformation() {
                     )
                     ProjectItem(
                         iconId = R.drawable.ic_device,
-                        name = "PV1",
+                        name = "PV2",
                         modifier = Modifier.width(75.dp)
                     )
                 }
@@ -86,7 +87,7 @@ fun PowerInformation() {
                     Text(text = "1")
                 }
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = { controller?.navigate("topological/长阳创谷E栋屋顶") },
                     colors = buttonColors(backgroundColor = Color.Transparent),
                     elevation = elevation(0.dp),
                     contentPadding = PaddingValues(0.dp)
@@ -113,6 +114,6 @@ fun PowerInformation() {
 @Composable
 fun PreviewPowerInformation() {
     Surface {
-        PowerInformation()
+        PowerInformation(null)
     }
 }

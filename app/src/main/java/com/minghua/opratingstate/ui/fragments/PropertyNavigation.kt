@@ -111,6 +111,16 @@ fun PropertyNavigation() {
             }){
                 ProjectInformation(navController,it.arguments?.getString("name") ?: "长阳创谷E栋屋顶")
             }
+            composable("topological/{name}",enterTransition = {
+                    initial, target ->
+                EnterTransition.None
+            },exitTransition = {
+                    initial, target ->
+                ExitTransition.None
+            }){
+                TopologicalGraph(it.arguments?.getString("name") ?: "长阳创谷E栋屋顶")
+            }
+
         }
     }
 
