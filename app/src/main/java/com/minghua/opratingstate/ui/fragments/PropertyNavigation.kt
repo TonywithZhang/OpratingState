@@ -120,7 +120,15 @@ fun PropertyNavigation() {
             }){
                 TopologicalGraph(it.arguments?.getString("name") ?: "长阳创谷E栋屋顶")
             }
-
+            composable("production/{name}",enterTransition = {
+                    initial, target ->
+                EnterTransition.None
+            },exitTransition = {
+                    initial, target ->
+                ExitTransition.None
+            }){
+                ProductionProgress(it.arguments?.getString("name") ?: "长阳创谷E栋屋顶")
+            }
         }
     }
 

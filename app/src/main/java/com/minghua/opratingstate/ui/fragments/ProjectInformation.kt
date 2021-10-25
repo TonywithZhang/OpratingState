@@ -32,7 +32,7 @@ fun ProjectInformation(controller: NavHostController?,name: String) {
         PowerInformation(controller)
         EfficiencyCard()
         AssemblyPower()
-        ElectricPower()
+        ElectricPower(controller,"长阳创谷E栋屋顶")
         ConverterEfficiency()
         AssemblyEfficiency()
         Spacer(modifier = Modifier.height(50.dp))
