@@ -14,6 +14,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.minghua.opratingstate.R
 import com.minghua.opratingstate.ui.drawings.LineChart
 import com.minghua.opratingstate.utils.colorGroup
@@ -21,7 +22,7 @@ import com.minghua.opratingstate.utils.lineChartData
 import com.minghua.opratingstate.utils.times
 
 @Composable
-fun AssemblyEfficiency(){
+fun AssemblyEfficiency(controller: NavHostController,name : String){
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -58,7 +59,7 @@ fun AssemblyEfficiency(){
                     .padding(2.dp)
             )
             Button(
-                onClick = { },
+                onClick = { controller.navigate("loss/$name") },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
                 elevation = ButtonDefaults.elevation(0.dp)
             ) {

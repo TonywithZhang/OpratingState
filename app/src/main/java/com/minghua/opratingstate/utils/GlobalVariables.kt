@@ -10,6 +10,7 @@ import com.madrapps.plot.line.DataPoint
 import com.minghua.opratingstate.R
 import com.minghua.opratingstate.models.BarChartDataModel
 import com.minghua.opratingstate.models.ConverterSampleModel
+import com.minghua.opratingstate.models.LossSampleModel
 import com.minghua.opratingstate.models.ProjectItemModel
 import com.minghua.opratingstate.ui.theme.Teal200
 import java.text.SimpleDateFormat
@@ -80,4 +81,9 @@ val converterSamples = listOf(
     ConverterSampleModel("2区B逆变器",5758,0.9790f,0.9778f,0.9845f,0.9828f),
     ConverterSampleModel("3区A逆变器",7447,0.9790f,0.9778f,0.9845f,0.9828f),
     ConverterSampleModel("3区B逆变器",7769,0.9790f,0.9778f,0.9845f,0.9828f)
+)
+
+val lossSamples = listOf(
+    LossSampleModel("光伏组串1",5,0.0274f,"2021-11-05"),
+    LossSampleModel("光伏组串2",3,0.0705f,"2021-11-08")
 )

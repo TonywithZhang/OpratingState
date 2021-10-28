@@ -32,7 +32,7 @@ fun ConverterStatus(
         elevation = 3.dp, shape = RoundedCornerShape(5), modifier = Modifier
             .fillMaxWidth()
             .wrapContentWidth()
-            .padding(2.dp)
+            .padding(8.dp)
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceEvenly,

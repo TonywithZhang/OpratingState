@@ -34,7 +34,7 @@ fun ProjectInformation(controller: NavHostController?,name: String) {
         AssemblyPower()
         ElectricPower(controller,name)
         ConverterEfficiency(controller,name)
-        AssemblyEfficiency()
+        AssemblyEfficiency(controller!!,name)
         Spacer(modifier = Modifier.height(50.dp))
     }
 }

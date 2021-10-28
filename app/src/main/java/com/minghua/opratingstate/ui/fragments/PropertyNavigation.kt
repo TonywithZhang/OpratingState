@@ -25,6 +25,7 @@ import com.google.accompanist.navigation.animation.navigation
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.minghua.opratingstate.R
 import com.minghua.opratingstate.models.BottomNavigationModel
+import com.minghua.opratingstate.ui.fragments.project_information.EfficiencyLoss
 
 val bottomNavigationModels = listOf(
     BottomNavigationModel("首页", R.drawable.baseline_home_black_24dp, "main"),
@@ -137,6 +138,15 @@ fun PropertyNavigation() {
                 ExitTransition.None
             }){
                 ConverterLine(it.arguments?.getString("name") ?: "长阳创谷E栋屋顶")
+            }
+            composable("loss/{name}",enterTransition = {
+                    initial, target ->
+                EnterTransition.None
+            },exitTransition = {
+                    initial, target ->
+                ExitTransition.None
+            }){
+                EfficiencyLoss(it.arguments?.getString("name") ?: "长阳创谷E栋屋顶")
             }
         }
     }
