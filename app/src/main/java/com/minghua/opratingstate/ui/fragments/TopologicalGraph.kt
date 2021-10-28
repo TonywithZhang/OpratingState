@@ -17,6 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.minghua.opratingstate.R
+import com.minghua.opratingstate.ui.theme.topBarColor
 
 @Composable
 fun TopologicalGraph(name: String){
@@ -24,7 +25,7 @@ fun TopologicalGraph(name: String){
         Box(modifier = Modifier
             .fillMaxWidth()
             .height(35.dp)
-            .background(Color(0xffA8D08D))) {
+            .background(topBarColor)) {
             Text(text = "屋顶电站拓扑",modifier = Modifier.align(Alignment.Center))
         }
         Image(painter = painterResource(id = R.drawable.topological), contentDescription = null,modifier = Modifier.fillMaxWidth(),contentScale = ContentScale.FillWidth)

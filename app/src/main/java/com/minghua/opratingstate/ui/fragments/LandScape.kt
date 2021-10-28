@@ -35,6 +35,7 @@ import com.minghua.opratingstate.ui.drawings.DetailProjectItem
 import com.minghua.opratingstate.ui.drawings.LineChart
 import com.minghua.opratingstate.ui.drawings.ProgressCircle
 import com.minghua.opratingstate.ui.drawings.StatisticsPresenter
+import com.minghua.opratingstate.ui.theme.topBarColor
 import com.minghua.opratingstate.utils.lineChartData
 import com.minghua.opratingstate.utils.colorGroup
 import com.minghua.opratingstate.utils.items
@@ -60,7 +61,7 @@ fun LandScape(userName: String = "", navController: NavHostController?) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
-                .background(Color(0xffA8D08D)),
+                .background(topBarColor),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {

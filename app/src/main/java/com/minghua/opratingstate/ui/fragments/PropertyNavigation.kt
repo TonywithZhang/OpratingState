@@ -129,6 +129,15 @@ fun PropertyNavigation() {
             }){
                 ProductionProgress(it.arguments?.getString("name") ?: "长阳创谷E栋屋顶")
             }
+            composable("converterLine/{name}",enterTransition = {
+                    initial, target ->
+                EnterTransition.None
+            },exitTransition = {
+                    initial, target ->
+                ExitTransition.None
+            }){
+                ConverterLine(it.arguments?.getString("name") ?: "长阳创谷E栋屋顶")
+            }
         }
     }
 

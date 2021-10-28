@@ -9,6 +9,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.madrapps.plot.line.DataPoint
 import com.minghua.opratingstate.R
 import com.minghua.opratingstate.models.BarChartDataModel
+import com.minghua.opratingstate.models.ConverterSampleModel
 import com.minghua.opratingstate.models.ProjectItemModel
 import com.minghua.opratingstate.ui.theme.Teal200
 import java.text.SimpleDateFormat
@@ -70,4 +71,13 @@ val barModels = listOf(
     BarChartDataModel("9.9", 9.9f),
     BarChartDataModel("9.10", 9.1f),
     BarChartDataModel("9.11", 9.2f)
+)
+
+val converterSamples = listOf(
+    ConverterSampleModel("1区A逆变器",2668,0.9790f,0.9778f,0.9845f,0.9828f),
+    ConverterSampleModel("1区B逆变器",2857,0.9841f,0.9813f,0.9829f,0.9864f),
+    ConverterSampleModel("2区A逆变器",7003,0.9790f,0.9778f,0.9845f,0.9828f),
+    ConverterSampleModel("2区B逆变器",5758,0.9790f,0.9778f,0.9845f,0.9828f),
+    ConverterSampleModel("3区A逆变器",7447,0.9790f,0.9778f,0.9845f,0.9828f),
+    ConverterSampleModel("3区B逆变器",7769,0.9790f,0.9778f,0.9845f,0.9828f)
 )

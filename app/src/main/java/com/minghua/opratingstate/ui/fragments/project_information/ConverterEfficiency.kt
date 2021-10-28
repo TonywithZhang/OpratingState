@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.minghua.opratingstate.R
 import com.minghua.opratingstate.ui.drawings.LineChart
 import com.minghua.opratingstate.utils.colorGroup
@@ -19,7 +20,7 @@ import com.minghua.opratingstate.utils.lineChartData
 import com.minghua.opratingstate.utils.times
 
 @Composable
-fun ConverterEfficiency(){
+fun ConverterEfficiency(controller: NavHostController?,name : String){
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -56,7 +57,7 @@ fun ConverterEfficiency(){
                     .padding(2.dp)
             )
             Button(
-                onClick = { },
+                onClick = { controller?.navigate("converterLine/$name")},
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
                 elevation = ButtonDefaults.elevation(0.dp)
             ) {
@@ -75,6 +76,6 @@ fun ConverterEfficiency(){
 @Composable
 fun PreviewConverterEfficiency(){
     Surface {
-        ConverterEfficiency()
+        ConverterEfficiency(null,"")
     }
 }

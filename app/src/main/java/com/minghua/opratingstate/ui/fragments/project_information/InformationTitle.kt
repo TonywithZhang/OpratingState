@@ -20,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.minghua.opratingstate.ui.drawings.DetailProjectItem
+import com.minghua.opratingstate.ui.theme.topBarColor
 import com.minghua.opratingstate.utils.items
 import com.vanpra.composematerialdialogs.MaterialDialog
 import com.vanpra.composematerialdialogs.listItems
@@ -39,8 +40,8 @@ fun InformationTitle(title: String){
         modifier = Modifier
             .fillMaxWidth()
             .height(40.dp)
-            .background(Color(0xffA8D08D))) {
-        Text(text = "$title﹀",style = MaterialTheme.typography.h4,modifier = Modifier.clickable { dialogState.show() })
+            .background(topBarColor)) {
+        Text(text = "$title﹀",style = MaterialTheme.typography.h6,modifier = Modifier.clickable { dialogState.show() })
     }
 }
 

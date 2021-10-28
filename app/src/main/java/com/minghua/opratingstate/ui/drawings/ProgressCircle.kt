@@ -12,12 +12,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.nativeCanvas
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlin.math.min
 
 @Composable
-fun ProgressCircle(progress: Float, modifier: Modifier = Modifier, showText: Boolean = false) {
+fun ProgressCircle(
+    progress: Float,
+    modifier: Modifier = Modifier,
+    showText: Boolean = false,
+    color: Color = Color(0xff4672C4)
+) {
     var initialed by remember {
         mutableStateOf(false)
     }
@@ -32,14 +38,14 @@ fun ProgressCircle(progress: Float, modifier: Modifier = Modifier, showText: Boo
         val width = size.width
         val height = size.height
         drawCircle(
-            Color(0xff4672C4),
+            color,
             radius = min(height, width) / 2,
             center = Offset(width / 2, height / 2),
             style = Stroke(width = 2f),
             alpha = 0.5f
         )
         drawArc(
-            Color(0xff4672C4),
+            color,
             -90f,
             animateProgress.value * 360,
             false,
@@ -53,6 +59,7 @@ fun ProgressCircle(progress: Float, modifier: Modifier = Modifier, showText: Boo
         if (showText) {
             val paint = android.graphics.Paint().apply {
                 textSize = 14.dp.toPx()
+                this.color = color.toArgb()
             }
             val progressText = String.format("%.2f%%", progress * 100)
             val textLength = paint.measureText(progressText)
@@ -71,5 +78,5 @@ fun ProgressCircle(progress: Float, modifier: Modifier = Modifier, showText: Boo
 @Preview(showBackground = true)
 @Composable
 fun ProgressCirclePreview() {
-    ProgressCircle(0.3f, modifier = Modifier.fillMaxSize(),true)
+    ProgressCircle(0.3f, modifier = Modifier.fillMaxSize(), true)
 }
