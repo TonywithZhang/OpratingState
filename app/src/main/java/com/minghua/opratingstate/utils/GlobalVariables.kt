@@ -8,10 +8,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.madrapps.plot.line.DataPoint
 import com.minghua.opratingstate.R
-import com.minghua.opratingstate.models.BarChartDataModel
-import com.minghua.opratingstate.models.ConverterSampleModel
-import com.minghua.opratingstate.models.LossSampleModel
-import com.minghua.opratingstate.models.ProjectItemModel
+import com.minghua.opratingstate.models.*
 import com.minghua.opratingstate.ui.theme.Teal200
 import java.text.SimpleDateFormat
 import java.util.*
@@ -86,4 +83,25 @@ val converterSamples = listOf(
 val lossSamples = listOf(
     LossSampleModel("光伏组串1",5,0.0274f,"2021-11-05"),
     LossSampleModel("光伏组串2",3,0.0705f,"2021-11-08")
+)
+
+val logTypes = listOf("综合报表","设备健康指数报表","逆变器状态信息表")
+
+val projects = listOf(
+    ProjectInformationModel("长阳创谷E楼屋顶",40,5,35,12.5f,0.75f, listOf(
+        ConverterStatusModel("逆变器1A",0.9520f, listOf(
+            StreamStatusModel("汇流箱01", listOf(85,85,85,85,85,60),"正常")
+        ),"5:59","18:30"),
+        ConverterStatusModel("逆变器1B",0.9520f, listOf(
+            StreamStatusModel("汇流箱01", listOf(85,85,85,85,85,60),"正常")
+        ),"5:59","18:30")
+    )),
+    ProjectInformationModel("长阳创谷C楼屋顶",40,5,35,12.5f,0.75f, listOf(
+        ConverterStatusModel("逆变器1A",0.9520f, listOf(
+            StreamStatusModel("汇流箱01", listOf(85,85,85,85,85,60),"正常")
+        ),"5:59","18:30"),
+        ConverterStatusModel("逆变器1B",0.9520f, listOf(
+            StreamStatusModel("汇流箱01", listOf(85,85,85,85,85,60),"正常")
+        ),"5:59","18:30")
+    ))
 )

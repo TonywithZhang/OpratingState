@@ -23,6 +23,7 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.navigation
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.minghua.opratingstate.R
 import com.minghua.opratingstate.models.BottomNavigationModel
 import com.minghua.opratingstate.ui.fragments.project_information.EfficiencyLoss
@@ -34,6 +35,7 @@ val bottomNavigationModels = listOf(
     BottomNavigationModel("我的", R.drawable.baseline_account_circle_black_24dp, "user")
 )
 
+@ExperimentalPermissionsApi
 @RequiresApi(Build.VERSION_CODES.O)
 @ExperimentalAnimationApi
 @Composable
@@ -153,6 +155,7 @@ fun PropertyNavigation() {
 
 }
 
+@ExperimentalPermissionsApi
 @RequiresApi(Build.VERSION_CODES.O)
 @ExperimentalAnimationApi
 @Preview(showBackground = true)

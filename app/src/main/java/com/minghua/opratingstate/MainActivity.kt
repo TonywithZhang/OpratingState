@@ -1,11 +1,13 @@
 package com.minghua.opratingstate
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.animateColorAsState
@@ -31,13 +33,9 @@ import androidx.compose.ui.unit.dp
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import com.airbnb.lottie.compose.*
-import com.google.accompanist.navigation.animation.navigation
-import com.google.accompanist.navigation.animation.AnimatedNavHost
-import com.google.accompanist.navigation.animation.composable
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.minghua.opratingstate.network.repositories.loginNetwork
 import com.minghua.opratingstate.ui.fragments.PropertyNavigation
-import com.minghua.opratingstate.ui.fragments.StateSummary
 import com.minghua.opratingstate.ui.theme.OpratingStateTheme
 import com.minghua.opratingstate.utils.dataStore
 import kotlinx.coroutines.CoroutineScope
@@ -51,6 +49,15 @@ import kotlinx.coroutines.withContext
 val loginKey = booleanPreferencesKey("login_state")
 
 class MainActivity : ComponentActivity() {
+//    private val permissionRequest = registerForActivityResult(ActivityResultContracts.RequestPermission()){
+//        if (it){
+//            Toast.makeText(this,"权限请求成功",Toast.LENGTH_LONG).show()
+//        }
+//        else{
+//            Toast.makeText(this,"权限请求失败",Toast.LENGTH_LONG).show()
+//        }
+//    }
+    @ExperimentalPermissionsApi
     @ExperimentalAnimationApi
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,9 +70,11 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+//        permissionRequest.launch(Manifest.permission_group.STORAGE)
     }
 }
 
+@ExperimentalPermissionsApi
 @SuppressLint("FlowOperatorInvokedInComposition")
 @ExperimentalAnimationApi
 @RequiresApi(Build.VERSION_CODES.O)

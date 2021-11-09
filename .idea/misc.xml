@@ -3,11 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/workplace/androidProjects/opratingstate/app/src/main/res/drawable/ic_24h.xml" value="0.38645833333333335" />
+        <entry key="..\:/workplace/androidProjects/opratingstate/app/src/main/res/drawable/ic____.xml" value="0.38645833333333335" />
+        <entry key="..\:/workplace/androidProjects/opratingstate/app/src/main/res/drawable/ic_converter_efficiency.xml" value="0.38645833333333335" />
+        <entry key="..\:/workplace/androidProjects/opratingstate/app/src/main/res/drawable/ic_day_radiation.xml" value="0.38645833333333335" />
+        <entry key="..\:/workplace/androidProjects/opratingstate/app/src/main/res/drawable/ic_folded.xml" value="0.38645833333333335" />
         <entry key="..\:/workplace/androidProjects/opratingstate/app/src/main/res/drawable/ic_log.xml" value="0.4859375" />
+        <entry key="..\:/workplace/androidProjects/opratingstate/app/src/main/res/drawable/ic_production.xml" value="0.38645833333333335" />
+        <entry key="..\:/workplace/androidProjects/opratingstate/app/src/main/res/drawable/ic_start.xml" value="0.4441025641025641" />
+        <entry key="..\:/workplace/androidProjects/opratingstate/app/src/main/res/drawable/ic_stream_box.xml" value="0.38645833333333335" />
         <entry key="..\:/workplace/androidProjects/opratingstate/app/src/main/res/drawable/ic_sunny.xml" value="0.4328125" />
         <entry key="..\:/workplace/androidProjects/opratingstate/app/src/main/res/drawable/ic_username.xml" value="0.5520833333333334" />
+        <entry key="..\:/workplace/androidProjects/opratingstate/app/src/main/res/drawable/photovoltaic_panel.xml" value="0.38645833333333335" />
         <entry key="..\:/workplace/androidProjects/opratingstate/app/src/main/res/drawable/pv1_icon.xml" value="0.371875" />
         <entry key="..\:/workplace/androidProjects/opratingstate/app/src/main/res/drawable/pv2_icon.xml" value="0.371875" />
+        <entry key="..\:/workplace/androidProjects/opratingstate/app/src/main/res/drawable/radiation_quantity.xml" value="0.38645833333333335" />
       </map>
     </option>
   </component>
