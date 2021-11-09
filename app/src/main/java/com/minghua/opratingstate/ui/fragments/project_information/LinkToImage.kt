@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.minghua.opratingstate.ui.theme.topBarColor
 
 @Composable
 fun LinkToImage() {
@@ -36,11 +37,11 @@ fun LinkToImage() {
         path.lineTo(points[1].x,points[1].y)
         path.lineTo(points[2].x,points[2].y)
         path.close()
-        drawPath(path = path,color = if(indicator.toInt() % 3 == 0)Color.Yellow else Color(0xffA8D08D))
+        drawPath(path = path,color = if(indicator.toInt() % 3 == 0)Color.Yellow else topBarColor)
         path.translate(Offset(26.66f * 1.dp.toPx(),0f))
-        drawPath(path = path,color = if(indicator.toInt() % 3 == 1)Color.Yellow else Color(0xffA8D08D))
+        drawPath(path = path,color = if(indicator.toInt() % 3 == 1)Color.Yellow else topBarColor)
         path.translate(Offset(26.66f * 1.dp.toPx(),0f))
-        drawPath(path = path,color = if(indicator.toInt() % 3 == 2)Color.Yellow else Color(0xffA8D08D))
+        drawPath(path = path,color = if(indicator.toInt() % 3 == 2)Color.Yellow else topBarColor)
     }
 }
 

@@ -147,7 +147,7 @@ fun LandScape(userName: String = "", navController: NavHostController?) {
                 text = "发电功率",
                 Modifier
                     .background(
-                        Color(0xffA8D08D),
+                        topBarColor,
                         RoundedCornerShape(20)
                     )
                     .padding(horizontal = 15.dp, vertical = 5.dp)
@@ -228,7 +228,7 @@ fun LandScape(userName: String = "", navController: NavHostController?) {
                 text = "电量",
                 Modifier
                     .background(
-                        Color(0xffA8D08D),
+                        topBarColor,
                         RoundedCornerShape(20)
                     )
                     .padding(horizontal = 15.dp, vertical = 5.dp)

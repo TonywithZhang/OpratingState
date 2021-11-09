@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.minghua.opratingstate.R
 import com.minghua.opratingstate.ui.drawings.LineChart
+import com.minghua.opratingstate.ui.theme.topBarColor
 import com.minghua.opratingstate.utils.colorGroup
 import com.minghua.opratingstate.utils.lineChartData
 import com.minghua.opratingstate.utils.times
@@ -52,8 +53,8 @@ fun ConverterEfficiency(controller: NavHostController?,name : String){
             Text(
                 text = "逆变器效率 A01﹀",
                 modifier = Modifier
-                    .clip(RoundedCornerShape(50))
-                    .background(Color(0xffA8D08D))
+                    .clip(RoundedCornerShape(15))
+                    .background(topBarColor)
                     .padding(2.dp)
             )
             Button(

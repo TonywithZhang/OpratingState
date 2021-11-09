@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.minghua.opratingstate.ui.drawings.LineChart
+import com.minghua.opratingstate.ui.theme.topBarColor
 import com.minghua.opratingstate.utils.colorGroup
 import com.minghua.opratingstate.utils.lineChartData
 import com.minghua.opratingstate.utils.times
@@ -29,8 +30,8 @@ fun AssemblyPower(){
             Text(
                 text = "光伏组件功率",
                 modifier = Modifier
-                    .clip(RoundedCornerShape(50))
-                    .background(Color(0xffA8D08D))
+                    .clip(RoundedCornerShape(15))
+                    .background(topBarColor)
                     .padding(3.dp)
             )
         }

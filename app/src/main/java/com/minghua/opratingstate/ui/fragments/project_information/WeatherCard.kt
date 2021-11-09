@@ -16,6 +16,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.minghua.opratingstate.R
 
 @Composable
@@ -42,7 +43,7 @@ fun WeatherCard() {
             Row(
                 horizontalArrangement = Arrangement.Start, modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 10.dp),
+                    .padding(start = 10.dp,top = 6.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
@@ -56,21 +57,18 @@ fun WeatherCard() {
             Column(verticalArrangement = Arrangement.spacedBy(5.dp),horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(
                     text = "今日发电（kWh）",
-                    color = Color.White
+                    style = TextStyle(color = Color.White,fontSize = 18.sp)
                 )
                 Text(
                     text = "20",
-                    style = TextStyle.Default.copy(
-                        fontSize = MaterialTheme.typography.subtitle1.fontSize,
-                        fontStyle = androidx.compose.ui.text.font.FontStyle.Italic
-                    ),
-                    color = Color.White
+                    style = TextStyle(color = Color.White,fontSize = 24.sp)
                 )
             }
             Row(horizontalArrangement = Arrangement.SpaceBetween,modifier = Modifier.fillMaxWidth()) {
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(3.dp)
+                    verticalArrangement = Arrangement.spacedBy(3.dp),
+                    modifier = Modifier.padding(bottom = 6.dp)
                 ) {
                     Text(text = "当月发电（kWh）",color = Color.White)
                     Text(text = "150.5",color = Color.White)

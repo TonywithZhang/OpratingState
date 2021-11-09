@@ -12,6 +12,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.minghua.opratingstate.ui.theme.topBarColor
 
 @Composable
 fun EfficiencyCard() {
@@ -27,7 +28,7 @@ fun EfficiencyCard() {
             Text(
                 text = "宏观指标", modifier = Modifier
                     .background(
-                        Color(0xffA8D08D), shape = RoundedCornerShape(15)
+                        topBarColor, shape = RoundedCornerShape(15)
                     )
                     .padding(horizontal = 10.dp, vertical = 2.dp)
                     .align(Alignment.CenterHorizontally)
@@ -40,7 +41,7 @@ fun EfficiencyCard() {
             Text(
                 text = "微观指标", modifier = Modifier
                     .background(
-                        Color(0xffA8D08D), shape = RoundedCornerShape(15)
+                        topBarColor, shape = RoundedCornerShape(15)
                     )
                     .padding(horizontal = 10.dp, vertical = 2.dp)
                     .align(Alignment.CenterHorizontally)

@@ -15,14 +15,14 @@ import com.minghua.opratingstate.R
 fun CapacityInformation(){
     Row(horizontalArrangement = Arrangement.SpaceAround,modifier = Modifier.fillMaxWidth()){
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Icon(painter = painterResource(id = R.drawable.ic_power), contentDescription = null,modifier = Modifier.size(30.dp))
+            Icon(painter = painterResource(id = R.drawable.ic_power), contentDescription = null,modifier = Modifier.size(45.dp))
             Column(verticalArrangement = Arrangement.spacedBy(6.dp,Alignment.Top)) {
                 Text(text = "装机容量",style = MaterialTheme.typography.h5)
                 Text(text = "12kWp")
             }
         }
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Icon(painter = painterResource(id = R.drawable.ic_net), contentDescription = null,modifier = Modifier.size(30.dp))
+            Icon(painter = painterResource(id = R.drawable.ic_net), contentDescription = null,modifier = Modifier.size(45.dp))
             Column(verticalArrangement = Arrangement.spacedBy(6.dp,Alignment.Top)) {
                 Text(text = "投运时间",style = MaterialTheme.typography.h5)
                 Text(text = "2021-01-21")

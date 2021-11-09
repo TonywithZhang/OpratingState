@@ -23,9 +23,8 @@ fun LocationInformation(location: String) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
-
-            .clip(RoundedCornerShape(50))
-            .background(Color.White).padding(horizontal = 20.dp),
+            .clip(RoundedCornerShape(10))
+            .background(Color.White).padding(horizontal = 20.dp,vertical = 6.dp),
         horizontalArrangement = Arrangement.Center
     ) {
         Icon(painterResource(id = R.drawable.ic_location),contentDescription = null,Modifier.size(25.dp))

@@ -34,7 +34,7 @@ fun PowerInformation(controller: NavHostController?) {
                 .background(Color.White)
         ) {
             Row(
-                horizontalArrangement = Arrangement.SpaceAround,
+                horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .fillMaxSize()
@@ -43,12 +43,12 @@ fun PowerInformation(controller: NavHostController?) {
                     ProjectItem(
                         iconId = R.drawable.ic_device,
                         name = "PV1",
-                        modifier = Modifier.width(75.dp)
+                        modifier = Modifier.width(60.dp)
                     )
                     ProjectItem(
                         iconId = R.drawable.ic_device,
                         name = "PV2",
-                        modifier = Modifier.width(75.dp)
+                        modifier = Modifier.width(60.dp)
                     )
                 }
                 LinkToImage()

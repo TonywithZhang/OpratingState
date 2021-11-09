@@ -19,7 +19,7 @@ fun ProjectInformation(controller: NavHostController?,name: String) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.LightGray)
+            .background(Color(0xffF2F2F2))
             .offset(x = 0.dp,y = (-3).dp)
             .verticalScroll(scroll),
         verticalArrangement = Arrangement.spacedBy(3.dp,Alignment.Top),
