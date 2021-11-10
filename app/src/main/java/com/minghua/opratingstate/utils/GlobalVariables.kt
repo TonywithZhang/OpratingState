@@ -108,3 +108,22 @@ val projects = listOf(
         ),"5:59","18:30")
     ))
 )
+
+val messageList = listOf(
+    MessageModel("屋顶** 1A逆变器通讯不佳", dateFormatter.format(Date()),true),
+    MessageModel("屋顶** 07组串部分遮挡",dateFormatter.format(Date()),false),
+    MessageModel("屋顶** 1A逆变器通讯不佳","2021-10-8",false),
+    MessageModel("屋顶** 07组串部分遮挡","2021-10-8",false),
+    MessageModel("屋顶**","2021-10-8",true),
+    MessageModel("屋顶**","2021-10-8",false),
+    MessageModel("屋顶**","2021-10-8",false),
+    MessageModel("屋顶**","2021-10-8",true),
+    MessageModel("屋顶**","2021-10-8",false),
+    MessageModel("屋顶**","2021-10-8",false),
+    MessageModel("屋顶**","2021-10-8",false),
+    MessageModel("屋顶**","2021-10-8",false),
+    MessageModel("屋顶**","2021-10-8",true),
+    MessageModel("屋顶**","2021-10-8",false),
+    MessageModel("屋顶**","2021-10-8",false)
+)
+val attachmentList = listOf("*************.jpg","********.jpg")

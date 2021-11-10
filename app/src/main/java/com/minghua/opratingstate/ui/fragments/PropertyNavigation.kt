@@ -19,6 +19,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.navigation
@@ -94,7 +96,7 @@ fun PropertyNavigation() {
                     initial, target ->
                 ExitTransition.None
             }) {
-                MessagePage()
+                MessagePage(navController)
             }
             composable("user",enterTransition = {
                     initial, target ->
@@ -149,6 +151,15 @@ fun PropertyNavigation() {
                 ExitTransition.None
             }){
                 EfficiencyLoss(it.arguments?.getString("name") ?: "长阳创谷E栋屋顶")
+            }
+            composable("messageDetail/{messageId}",enterTransition = {
+                    initial, target ->
+                EnterTransition.None
+            },exitTransition = {
+                    initial, target ->
+                ExitTransition.None
+            }){
+                MessageContent(it.arguments?.getString("messageId")?.toInt() ?: 0)
             }
         }
     }
