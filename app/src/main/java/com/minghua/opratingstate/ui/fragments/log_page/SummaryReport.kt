@@ -38,7 +38,7 @@ fun SummaryReport() {
                 ) {
                     LogPageItem(
                         imageId = R.drawable.radiation_quantity,
-                        title = "累计辐照量（W/kWh）",
+                        title = "累计辐照量（W/m²）",
                         value = it.radiation.toString(),
                         modifier = Modifier.fillMaxWidth(fraction)
                     )

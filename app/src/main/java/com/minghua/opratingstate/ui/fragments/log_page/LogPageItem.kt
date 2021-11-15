@@ -29,7 +29,7 @@ fun LogPageItem(
         modifier = modifier
     ) {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(5.dp),
+            horizontalArrangement = Arrangement.spacedBy(3.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             if (showIcon){
@@ -39,9 +39,9 @@ fun LogPageItem(
                     modifier = Modifier.size(22.dp)
                 )
             }
-            Text(text = title,style = TextStyle(fontSize = 10.sp))
+            Text(text = title,style = TextStyle(fontSize = 12.sp))
         }
-        Text(text = value,style = TextStyle(fontSize = 10.sp))
+        Text(text = value,style = TextStyle(fontSize = 12.sp))
     }
 }
 

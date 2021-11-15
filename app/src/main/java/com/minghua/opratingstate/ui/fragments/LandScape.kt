@@ -90,17 +90,24 @@ fun LandScape(userName: String = "", navController: NavHostController?) {
                 )
             }
             if (items.size >= 8)
-                Button(
-                    onClick = { dialogState.show() },
-                    colors = buttonColors(backgroundColor = Color.Transparent),
-                    elevation = elevation(0.dp)
-                ) {
-                    ProjectItem(
-                        iconId = R.drawable.ic_more,
-                        name = "更多",
-                        modifier = Modifier.fillMaxWidth(0.22f)
-                    )
-                }
+                ProjectItem(
+                    iconId = R.drawable.ic_more,
+                    name = "更多",
+                    modifier = Modifier
+                        .fillMaxWidth(0.22f)
+                        .clickable { dialogState.show() }
+                )
+//                Button(
+//                    onClick = { dialogState.show() },
+//                    colors = buttonColors(backgroundColor = Color.Transparent),
+//                    elevation = elevation(0.dp)
+//                ) {
+//                    ProjectItem(
+//                        iconId = R.drawable.ic_more,
+//                        name = "更多",
+//                        modifier = Modifier.fillMaxWidth(0.22f)
+//                    )
+//                }
         }
         Text(text = "实时统计", style = MaterialTheme.typography.h5)
         Row(
@@ -214,7 +221,7 @@ fun LandScape(userName: String = "", navController: NavHostController?) {
                         )
                     }
                 }.toTypedArray(),
-                legends = listOf("发电功率", "预测功率")
+                legends = listOf("PV1功率", "PV2功率")
             )
 //            LineChart(times = times, color = colorGroup, lineChartData, chartTitle = "直流输入电压对比",legends = listOf("PV1"))
         }

@@ -72,6 +72,12 @@ class MainActivity : ComponentActivity() {
         }
 //        permissionRequest.launch(Manifest.permission_group.STORAGE)
     }
+    private var pressTime : Long = 0L
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if (System.currentTimeMillis() - pressTime < 2000) finish()
+        pressTime = System.currentTimeMillis()
+    }
 }
 
 @ExperimentalPermissionsApi

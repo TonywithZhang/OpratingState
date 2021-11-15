@@ -53,7 +53,7 @@ fun HealthStatus() {
                                     imageId = R.drawable.ic_converter_efficiency,
                                     title = it.name,
                                     value = String.format("%.2f%%", it.efficiency * 100),
-                                    modifier = Modifier.fillMaxWidth()
+                                    modifier = Modifier.fillMaxWidth().padding(end = 5.dp)
                                 )
                             }
                             AnimatedVisibility(visible = converterExpanded) {
@@ -85,7 +85,7 @@ fun HealthStatus() {
                                                     imageId = R.drawable.ic_stream_box,
                                                     title = it.name,
                                                     value = it.state,
-                                                    modifier = Modifier.fillMaxWidth()
+                                                    modifier = Modifier.fillMaxWidth().padding(end = 5.dp)
                                                 )
                                             }
                                             AnimatedVisibility(visible = streamExpanded) {
@@ -102,7 +102,7 @@ fun HealthStatus() {
                                                             title = "光伏组串${index}健康指数",
                                                             value = i.toString(),
                                                             modifier = Modifier
-                                                                .fillMaxWidth(0.45f)
+                                                                .fillMaxWidth(0.48f)
                                                                 .padding(horizontal = 10.dp)
                                                         )
                                                     }
