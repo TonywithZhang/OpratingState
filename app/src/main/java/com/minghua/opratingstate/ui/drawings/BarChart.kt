@@ -39,14 +39,14 @@ fun BarChart(chartData: List<BarChartDataModel>) {
         Canvas(modifier = Modifier.fillMaxSize()) {
             val height = size.height
             val width = size.width
-            val barWidth = width / chartData.size * 0.8f
+            val barWidth = width / chartData.size * 0.56f
             val maxValue = chartData.maxOf { c -> c.value }
             val barHeight = chartData.map {
-                (height - 25.dp.toPx()) * it.value / maxValue * 0.9f
+                (height - 25.dp.toPx()) * it.value / maxValue * 0.85f
             }
             val barPositions = barHeight.mapIndexed { index, fl ->
                 Offset(
-                    width / chartData.size * (index + 0.1f),
+                    width / chartData.size * (index + 0.1f) + 5.dp.toPx(),
                     (height - 25.dp.toPx()) - fl * animateHeight
                 )
             }
@@ -56,7 +56,7 @@ fun BarChart(chartData: List<BarChartDataModel>) {
             }
             barPositions.forEachIndexed { index, offset ->
                 drawRect(
-                    Brush.verticalGradient(listOf(Color.Cyan, Color.Yellow)),
+                    Brush.verticalGradient(listOf(Color(0xff59b9b8), Color(0xff7e7e7e))),
                     topLeft = offset,
                     size = Size(barWidth, barHeight[index])
                 )

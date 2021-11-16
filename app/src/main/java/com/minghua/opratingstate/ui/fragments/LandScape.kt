@@ -46,6 +46,7 @@ import com.vanpra.composematerialdialogs.rememberMaterialDialogState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.lang.Exception
+import java.time.LocalDate
 
 @RequiresApi(Build.VERSION_CODES.O)
 @ExperimentalAnimationApi
@@ -118,15 +119,30 @@ fun LandScape(userName: String = "", navController: NavHostController?) {
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {
+            var percent by remember{ mutableStateOf(0.0f)}
             ProgressCircle(
-                progress = 0.5f,
-                Modifier
-                    .height(30.dp)
-                    .width(30.dp)
+                progress = percent,
+                showText = true,
+                textToInt = true,
+                modifier = Modifier
+                    .size(35.dp)
             )
+            var totalProduction by remember{ mutableStateOf(0.0f)}
+            LaunchedEffect(key1 = 1){
+                val now = LocalDate.now()
+                withContext(Dispatchers.IO){
+                    val result = localRoofRepo().timeSpannedProduction(2,"${now.year}-01-01",endTime = "${now.year}-12-31")
+                    if (result.isNotEmpty()){
+                        withContext(Dispatchers.Main){
+                            totalProduction = result[0].value / 10
+                            percent = result[0].value / 10 / 10924.2f
+                        }
+                    }
+                }
+            }
             Column(Modifier.wrapContentSize(), horizontalAlignment = Alignment.Start) {
-                Text(text = "年发电量/年计划发电量（万kWh）")
-                Text(text = "6.45/200")
+                Text(text = "年发电量/年计划发电量（kWh）")
+                Text(text = "${String.format("%.1f",totalProduction)}/10924.2")
             }
         }
         var refreshCount by remember { mutableStateOf(0) }

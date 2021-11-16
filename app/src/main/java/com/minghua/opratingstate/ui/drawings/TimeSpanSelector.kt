@@ -5,7 +5,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
+import androidx.compose.material.BottomNavigationDefaults.Elevation
 import androidx.compose.material.ButtonDefaults.buttonColors
+import androidx.compose.material.ButtonDefaults.elevation
+import androidx.compose.material.DrawerDefaults.Elevation
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
@@ -18,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.minghua.opratingstate.R
 
 @Composable
-fun TimeSpanSelector(timeSpan: String, forward: () -> Unit, backward: () -> Unit) {
+fun TimeSpanSelector(timeSpan: String, forward: () -> Unit,enable :Boolean = true, backward: () -> Unit) {
     Row(
         Modifier
             .fillMaxWidth()
@@ -32,7 +35,9 @@ fun TimeSpanSelector(timeSpan: String, forward: () -> Unit, backward: () -> Unit
             modifier = Modifier
                 .height(18.dp)
                 .width(18.dp),
-            contentPadding = PaddingValues(all = 2.dp)
+            contentPadding = PaddingValues(all = 2.dp),
+            enabled = enable,
+            elevation = elevation(0.dp)
         ) {
             Icon(
                 Icons.Filled.ArrowBack,
@@ -56,7 +61,9 @@ fun TimeSpanSelector(timeSpan: String, forward: () -> Unit, backward: () -> Unit
             modifier = Modifier
                 .height(18.dp)
                 .width(18.dp),
-            contentPadding = PaddingValues(all = 2.dp)
+            contentPadding = PaddingValues(all = 2.dp),
+            enabled = enable,
+            elevation = elevation(0.dp)
         ) {
             Icon(
                 Icons.Filled.ArrowForward,

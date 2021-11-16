@@ -16,12 +16,14 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlin.math.min
+import kotlin.math.roundToInt
 
 @Composable
 fun ProgressCircle(
     progress: Float,
     modifier: Modifier = Modifier,
     showText: Boolean = false,
+    textToInt: Boolean = false,
     color: Color = Color(0xff4672C4)
 ) {
     var initialed by remember {
@@ -61,7 +63,7 @@ fun ProgressCircle(
                 textSize = 14.dp.toPx()
                 this.color = color.toArgb()
             }
-            val progressText = String.format("%.2f%%", progress * 100)
+            val progressText = if (!textToInt)String.format("%.2f%%", progress * 100)else (progress*100).roundToInt().toString() + "%"
             val textLength = paint.measureText(progressText)
             drawIntoCanvas {
                 it.nativeCanvas.drawText(

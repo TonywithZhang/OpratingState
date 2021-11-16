@@ -1,16 +1,21 @@
 package com.minghua.opratingstate.network.service
 
+import com.minghua.opratingstate.models.BarChartDataModel
 import com.minghua.opratingstate.models.LocalRoofStateModel
 import com.minghua.opratingstate.models.LocalRoofSum
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface LocalRoofStateService {
     @GET("local_message")
-    suspend fun localRoofStates(@Query("time")time : String?): LocalRoofSum
+    suspend fun localRoofStates(@Query("time") time: String?): LocalRoofSum
 
     @GET("local_power")
     suspend fun localRoofPower(): LocalRoofStateModel
+
+    @POST("production")
+    suspend fun timeSpannedProduction(
+        @Query("scope") index: Int,
+        @Query("startTime") startTime: String,
+        @Query("endTime") endTime: String
+    ): List<BarChartDataModel>
 }
