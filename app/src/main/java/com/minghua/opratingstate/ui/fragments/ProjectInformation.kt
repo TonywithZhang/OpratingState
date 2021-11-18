@@ -1,5 +1,7 @@
 package com.minghua.opratingstate.ui.fragments
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -13,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.minghua.opratingstate.ui.fragments.project_information.*
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ProjectInformation(controller: NavHostController?,name: String) {
     val scroll = rememberScrollState()
@@ -39,6 +42,7 @@ fun ProjectInformation(controller: NavHostController?,name: String) {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true)
 @Composable
 fun PreviewProjectInformation() {

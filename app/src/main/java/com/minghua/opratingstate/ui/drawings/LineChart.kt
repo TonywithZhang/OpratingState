@@ -43,7 +43,8 @@ fun LineChart(
     color: List<Color>,
     vararg data: List<DataPoint>,
     legends: List<String>,
-    chartTitle: String = ""
+    chartTitle: String = "",
+    rightAxisMax : Long = 0
 ) {
     if (times.isEmpty()) return
     //数据初始化，只运行一次
@@ -94,6 +95,8 @@ fun LineChart(
             if (chartTitle.contains("效率")) {
                 maxValue = 0.2f
             }
+            //右边坐标轴和左边坐标轴的比例
+            val rightFactor = rightAxisMax * 1.0f / maxValue
             //初始化画笔
             val paint = Paint()
             val frameworkPaint = paint.asFrameworkPaint()
@@ -217,6 +220,16 @@ fun LineChart(
                         yPositions[yLabelIndex],
                         frameworkPaint
                     )
+                    if (rightAxisMax != 0L){
+                        val text = (yLabel * 10.0.pow(power.toDouble()) * rightFactor)
+                            .roundToInt().toString()
+                        it.nativeCanvas.drawText(
+                            text,
+                            width - frameworkPaint.measureText(text) - 3,
+                            yPositions[yLabelIndex],
+                            frameworkPaint
+                        )
+                    }
                 }
             }
             //绘制手指按上去之后显示的具体信息
@@ -274,7 +287,7 @@ fun LineChart(
                 }
                 //创建所有要显示的具体信息
                 val messages = legends.mapIndexed { index, s ->
-                    "$s：${detailValues[index].y}"
+                    "$s：${ detailValues[index].y * (if(index == legends.size - 1 && rightAxisMax != 0L) rightFactor else 1f)}"
                 }
                 //计算信息框的宽度，长度
                 val messageBoxWidth = messages.maxOf { m -> frameworkPaint.measureText(m) } + 30f

@@ -3,6 +3,7 @@ package com.minghua.opratingstate.network.service
 import com.minghua.opratingstate.models.BarChartDataModel
 import com.minghua.opratingstate.models.LocalRoofStateModel
 import com.minghua.opratingstate.models.LocalRoofSum
+import com.minghua.opratingstate.models.OutputRadiationModel
 import retrofit2.http.*
 
 interface LocalRoofStateService {
@@ -18,4 +19,7 @@ interface LocalRoofStateService {
         @Query("startTime") startTime: String,
         @Query("endTime") endTime: String
     ): List<BarChartDataModel>
+
+    @GET("out_radiation")
+    suspend fun getOutputRadiation() : OutputRadiationModel
 }
