@@ -5,13 +5,13 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object LocalRoofStateReepository {
-    val retrofit = Retrofit.Builder()
+object LocalRoofStateRepository {
+    private val retrofit: Retrofit = Retrofit.Builder()
         .client(OkHttpClient())
         .baseUrl("http://101.132.236.192:8079/local/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-    fun create() = retrofit.create(LocalRoofStateService ::class.java)
+    fun create(): LocalRoofStateService = retrofit.create(LocalRoofStateService ::class.java)
 }
 
-fun localRoofRepo() = LocalRoofStateReepository.create()
+fun localRoofRepo(): LocalRoofStateService = LocalRoofStateRepository.create()
