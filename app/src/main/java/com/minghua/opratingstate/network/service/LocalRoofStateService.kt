@@ -22,4 +22,7 @@ interface LocalRoofStateService {
 
     @GET("weather_card")
     suspend fun getWeatherCardData() : WeatherCardData
+
+    @GET("sys_efficiency")
+    suspend fun getSystemEfficiency() : List<Float>
 }

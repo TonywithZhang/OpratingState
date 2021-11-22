@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object WeatherRepository {
     private val retrofit = Retrofit.Builder()
         .client(OkHttpClient())
-        .baseUrl("http://wthrcdn.etouch.cn/")
+        .baseUrl("https://devapi.qweather.com/v7/weather/")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
     fun create(): WeatherService = retrofit.create(WeatherService :: class.java)

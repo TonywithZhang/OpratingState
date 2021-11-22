@@ -75,17 +75,17 @@ fun WeatherCard() {
                 {
                     withContext(Dispatchers.IO)
                     {
-                        val weatherData = weatherService().weatherToday("杨浦区")
-                        val weatherToday = weatherData.data.forecast[0]
+                        val weatherData = weatherService().weatherToday(cityName = "101021700")
+                        val weatherToday = weatherData.now
                         withContext(Dispatchers.Main) {
-                            weather = weatherToday.type + weatherToday.low.substring(3) + " ~ ${weatherToday.high.substring(3)}"
+                            weather = "${weatherToday.text}  ${weatherToday.temp}℃"
                             weatherIcon = when{
-                                weatherToday.type.contains("晴") -> R.drawable.ic_qingtian
-                                weatherToday.type.contains("阴") -> R.drawable.ic_yin
-                                weatherToday.type.contains("雨") -> R.drawable.ic_dayu
-                                weatherToday.type.contains("云") -> R.drawable.ic_duoyun
-                                weatherToday.type.contains("雾") -> R.drawable.ic_wu
-                                weatherToday.type.contains("雪") -> R.drawable.ic_daxue
+                                weatherToday.text.contains("晴") -> R.drawable.ic_qingtian
+                                weatherToday.text.contains("阴") -> R.drawable.ic_yin
+                                weatherToday.text.contains("雨") -> R.drawable.ic_dayu
+                                weatherToday.text.contains("云") -> R.drawable.ic_duoyun
+                                weatherToday.text.contains("雾") -> R.drawable.ic_wu
+                                weatherToday.text.contains("雪") -> R.drawable.ic_daxue
                                 else -> R.drawable.ic_wu
                             }
                         }

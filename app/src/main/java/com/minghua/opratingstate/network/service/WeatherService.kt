@@ -6,6 +6,9 @@ import retrofit2.http.Query
 
 interface WeatherService {
 
-    @GET("weather_mini")
-    suspend fun weatherToday(@Query("city")cityName : String) : WeatherModel
+    @GET("now")
+    suspend fun weatherToday(
+        @Query("key")key : String = "515675e5425a42df83d2611575d0ff5e",
+        @Query("location")cityName : String
+    ) : WeatherModel
 }

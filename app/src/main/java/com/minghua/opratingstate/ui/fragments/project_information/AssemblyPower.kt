@@ -60,11 +60,11 @@ fun AssemblyPower(){
                     val maxPower = state.dataList[0].maxOf { d -> d.y }
                     Log.d(TAG, "AssemblyPower: $maxRadiation")
                     withContext(Dispatchers.Main){
+                        maxRadiation = state.dataList[1].maxOf { d -> d.y }.toLong()
                         chartTime = state.times.map { d -> d.split(" ")[1] }
                         dataList = arrayOf(ArrayList(state.dataList[0]),
                             ArrayList(state.dataList[1].map { d -> DataPoint(d.x,d.y * maxPower / maxRadiation) })
                         )
-                        maxRadiation = state.dataList[1].maxOf { d -> d.y }.toLong()
                     }
                 }
             }

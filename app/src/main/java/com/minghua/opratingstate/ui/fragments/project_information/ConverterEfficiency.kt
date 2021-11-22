@@ -21,7 +21,7 @@ import com.minghua.opratingstate.utils.lineChartData
 import com.minghua.opratingstate.utils.times
 
 @Composable
-fun ConverterEfficiency(controller: NavHostController?,name : String){
+fun ConverterEfficiency(controller: NavHostController?, name: String) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -50,15 +50,23 @@ fun ConverterEfficiency(controller: NavHostController?,name : String){
             ) {
 
             }
-            Text(
-                text = "逆变器效率 A01﹀",
+            Row(
                 modifier = Modifier
                     .clip(RoundedCornerShape(15))
                     .background(topBarColor)
-                    .padding(2.dp)
-            )
+                    .padding(2.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(text = "逆变器效率 A01")
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_arrow_down),
+                    contentDescription = null,
+                    modifier = Modifier.size(15.dp)
+                )
+            }
+
             Button(
-                onClick = { controller?.navigate("converterLine/$name")},
+                onClick = { controller?.navigate("converterLine/$name") },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.Transparent),
                 elevation = ButtonDefaults.elevation(0.dp)
             ) {
@@ -69,14 +77,20 @@ fun ConverterEfficiency(controller: NavHostController?,name : String){
                 )
             }
         }
-        LineChart(times = times, color = colorGroup, lineChartData, chartTitle = "直流输入电压对比",legends = listOf("PV1"))
+        LineChart(
+            times = times,
+            color = colorGroup,
+            lineChartData,
+            chartTitle = "直流输入电压对比",
+            legends = listOf("PV1")
+        )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewConverterEfficiency(){
+fun PreviewConverterEfficiency() {
     Surface {
-        ConverterEfficiency(null,"")
+        ConverterEfficiency(null, "")
     }
 }
