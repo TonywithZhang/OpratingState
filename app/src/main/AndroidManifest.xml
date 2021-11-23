@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.minghua.opratingstate">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:fullBackupOnly="true"
         android:icon="@drawable/ic_solor_plate"
         android:label="@string/photovoltaic_operating_state"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.OpratingState">
+        android:theme="@style/Theme.OpratingState"
+        android:resizeableActivity="false"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="n">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -28,10 +31,18 @@
             android:authorities="com.minghua.opratingstate.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
-        <meta-data
-            android:name="android.support.FILE_PROVIDER_PATHS"
-            android:resource="@xml/file_paths" />
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
         </provider>
+        <meta-data
+            android:name="android.notch_support"
+            android:value="true" />
+        <meta-data
+            android:name="notch.config"
+            android:value="portrait|landscape" />
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.4" />
     </application>
-
 </manifest>

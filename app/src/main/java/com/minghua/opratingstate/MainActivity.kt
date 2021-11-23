@@ -4,6 +4,10 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.view.WindowInsets
+import android.view.WindowInsetsController
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -30,6 +34,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.view.WindowCompat
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import com.airbnb.lottie.compose.*
@@ -37,6 +42,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.minghua.opratingstate.network.repositories.loginNetwork
 import com.minghua.opratingstate.ui.fragments.PropertyNavigation
 import com.minghua.opratingstate.ui.theme.OpratingStateTheme
+import com.minghua.opratingstate.ui.theme.topBarColor
 import com.minghua.opratingstate.utils.dataStore
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -49,7 +55,7 @@ import kotlinx.coroutines.withContext
 val loginKey = booleanPreferencesKey("login_state")
 
 class MainActivity : ComponentActivity() {
-//    private val permissionRequest = registerForActivityResult(ActivityResultContracts.RequestPermission()){
+    //    private val permissionRequest = registerForActivityResult(ActivityResultContracts.RequestPermission()){
 //        if (it){
 //            Toast.makeText(this,"权限请求成功",Toast.LENGTH_LONG).show()
 //        }
@@ -62,6 +68,7 @@ class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window,false)
         setContent {
             OpratingStateTheme {
                 // A surface container using the 'background' color from the theme
@@ -70,9 +77,27 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val controller = window.insetsController
+
+            if(controller != null) {
+                controller.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
+                controller.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+            }
+        } else{
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        }
+        //window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        //window.insetsController?.hide(WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS)
+        //window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
 //        permissionRequest.launch(Manifest.permission_group.STORAGE)
     }
-    private var pressTime : Long = 0L
+
+    private var pressTime: Long = 0L
     override fun onBackPressed() {
         super.onBackPressed()
         if (System.currentTimeMillis() - pressTime < 2000) finish()
@@ -85,8 +110,9 @@ class MainActivity : ComponentActivity() {
 @ExperimentalAnimationApi
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun MainPage(modifier: Modifier = Modifier) {
-    val loginStateFlow : Flow<Boolean> = LocalContext.current.dataStore.data.map { preference -> preference[loginKey] ?: false }
+fun MainPage(modifier: Modifier = Modifier.background(topBarColor)) {
+    val loginStateFlow: Flow<Boolean> =
+        LocalContext.current.dataStore.data.map { preference -> preference[loginKey] ?: false }
     var loginState by remember { mutableStateOf(false) }
     LaunchedEffect(0) {
         loginStateFlow.collect { loginState = it }

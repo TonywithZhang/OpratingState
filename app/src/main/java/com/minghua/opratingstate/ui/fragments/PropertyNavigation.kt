@@ -6,6 +6,8 @@ import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -29,6 +31,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.minghua.opratingstate.R
 import com.minghua.opratingstate.models.BottomNavigationModel
 import com.minghua.opratingstate.ui.fragments.project_information.EfficiencyLoss
+import com.minghua.opratingstate.ui.theme.topBarColor
 
 val bottomNavigationModels = listOf(
     BottomNavigationModel("首页", R.drawable.baseline_home_black_24dp, "main"),
