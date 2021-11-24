@@ -27,7 +27,7 @@ fun SummaryReport() {
             Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.Start) {
                 Text(
                     text = it.name,
-                    style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                    style = TextStyle(fontWeight = FontWeight.Bold)
                 )
                 FlowRow(
                     modifier = Modifier

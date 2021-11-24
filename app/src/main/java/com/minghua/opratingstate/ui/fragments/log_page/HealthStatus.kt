@@ -22,7 +22,7 @@ import com.minghua.opratingstate.utils.projects
 
 @Composable
 fun HealthStatus() {
-    Column(modifier = Modifier.fillMaxWidth()) {
+    Column(modifier = Modifier.fillMaxWidth().padding(start = 5.dp)) {
         projects.forEach {
             Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.Start) {
                 Text(text = it.name, style = TextStyle(fontWeight = FontWeight.Bold))

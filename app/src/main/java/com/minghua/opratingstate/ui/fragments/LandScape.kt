@@ -77,7 +77,7 @@ fun LandScape(userName: String = "", navController: NavHostController?) {
             }
         }
         FlowRow(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().padding(vertical = 20.dp),
             mainAxisAlignment = FlowMainAxisAlignment.SpaceAround
         ) {
             items.forEachIndexed loop@{ index, itemModel ->
@@ -86,7 +86,7 @@ fun LandScape(userName: String = "", navController: NavHostController?) {
                     iconId = itemModel.iconId,
                     name = itemModel.name,
                     modifier = Modifier
-                        .fillMaxWidth(0.22f)
+                        .fillMaxWidth(0.21f)
                         .clickable { navController?.navigate("detailItem/${itemModel.name}") }
                 )
             }
@@ -95,7 +95,7 @@ fun LandScape(userName: String = "", navController: NavHostController?) {
                     iconId = R.drawable.ic_more,
                     name = "更多",
                     modifier = Modifier
-                        .fillMaxWidth(0.22f)
+                        .fillMaxWidth(0.21f)
                         .clickable { dialogState.show() }
                 )
 //                Button(

@@ -18,13 +18,13 @@ import com.minghua.opratingstate.models.ProjectItemModel
 fun DetailProjectItem(model: ProjectItemModel){
     Row(horizontalArrangement = Arrangement.Start,verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.background(
-            Color.White).fillMaxWidth()
+            Color.White).fillMaxWidth().padding(start = 20.dp)
     ) {
         Image(painter = painterResource(id = R.drawable.ic_device), contentDescription = null,Modifier.size(80.dp).padding(5.dp))
         Column(Modifier.padding(5.dp)) {
-            Text(text = model.name,style = MaterialTheme.typography.h4)
-            Text(text = "装机容量：${model.capacity}kWh")
-            Text(text = "逆变器：${model.converter}")
+            Text(text = model.name,style = MaterialTheme.typography.h5)
+            Text(text = "装机容量：${model.capacity}kWh",style = MaterialTheme.typography.subtitle1)
+            Text(text = "逆变器：${model.converter}",style = MaterialTheme.typography.subtitle1)
         }
     }
 }
