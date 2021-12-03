@@ -26,6 +26,7 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
@@ -113,12 +114,12 @@ class MainActivity : ComponentActivity() {
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainPage(modifier: Modifier = Modifier.background(topBarColor)) {
-    val loginStateFlow: Flow<Boolean> =
-        LocalContext.current.dataStore.data.map { preference -> preference[loginKey] ?: false }
+//    val loginStateFlow: Flow<Boolean> =
+//        LocalContext.current.dataStore.data.map { preference -> preference[loginKey] ?: false }
     var loginState by remember { mutableStateOf(false) }
-    LaunchedEffect(0) {
-        loginStateFlow.collect { loginState = it }
-    }
+//    LaunchedEffect(0) {
+//        loginStateFlow.collect { loginState = it }
+//    }
     if (loginState) PropertyNavigation()
     else LogInView(onStateChange = { loginState = it })
 }
@@ -135,8 +136,8 @@ fun LogInView(onStateChange: (Boolean) -> Unit) {
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun InputForm(onStateChange: (Boolean) -> Unit, modifier: Modifier = Modifier) {
-    var userName by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+    var userName by rememberSaveable { mutableStateOf("") }
+    var password by rememberSaveable { mutableStateOf("") }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -283,7 +284,7 @@ fun InputForm(onStateChange: (Boolean) -> Unit, modifier: Modifier = Modifier) {
                                     val network = loginNetwork()
                                     val result = network.login(userName, password)
                                     withContext(Dispatchers.Main) {
-                                        if (result.msg == "ok") {
+                                        if (result.msg == "success") {
                                             onStateChange(true)
                                             context.dataStore.edit { settings ->
                                                 settings[loginKey] = true

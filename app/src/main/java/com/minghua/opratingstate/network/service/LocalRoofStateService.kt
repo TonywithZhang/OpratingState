@@ -1,6 +1,8 @@
 package com.minghua.opratingstate.network.service
 
 import com.minghua.opratingstate.models.*
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.*
 
 interface LocalRoofStateService {
@@ -25,4 +27,8 @@ interface LocalRoofStateService {
 
     @GET("sys_efficiency")
     suspend fun getSystemEfficiency() : List<Float>
+
+    @Multipart
+    @POST("suggestions")
+    suspend fun uploadSuggestions(@PartMap params : Map<String,RequestBody>,@Part parts : List<MultipartBody.Part>) : Int
 }

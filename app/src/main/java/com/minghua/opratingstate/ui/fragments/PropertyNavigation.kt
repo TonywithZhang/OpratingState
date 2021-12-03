@@ -75,91 +75,71 @@ fun PropertyNavigation() {
 
         AnimatedNavHost(navController = navController, startDestination = "main") {
             composable("main",enterTransition = {
-                initial, target ->
                 EnterTransition.None
             },exitTransition = {
-                initial, target ->
                 ExitTransition.None
             }) {
                 LandScape(userName = "长阳创谷E栋屋顶",navController = navController)
             }
             composable("log",enterTransition = {
-                    initial, target ->
                 EnterTransition.None
             },exitTransition = {
-                    initial, target ->
                 ExitTransition.None
             }) {
                 LogPage()
             }
             composable("message",enterTransition = {
-                    initial, target ->
                 EnterTransition.None
             },exitTransition = {
-                    initial, target ->
                 ExitTransition.None
             }) {
                 MessagePage(navController)
             }
             composable("user",enterTransition = {
-                    initial, target ->
                 EnterTransition.None
             },exitTransition = {
-                    initial, target ->
                 ExitTransition.None
             }){
                 UserPage()
             }
             composable("detailItem/{name}",enterTransition = {
-                    initial, target ->
                 EnterTransition.None
             },exitTransition = {
-                    initial, target ->
                 ExitTransition.None
             }){
                 ProjectInformation(navController,it.arguments?.getString("name") ?: "长阳创谷E栋屋顶")
             }
             composable("topological/{name}",enterTransition = {
-                    initial, target ->
                 EnterTransition.None
             },exitTransition = {
-                    initial, target ->
                 ExitTransition.None
             }){
                 TopologicalGraph(it.arguments?.getString("name") ?: "长阳创谷E栋屋顶")
             }
             composable("production/{name}",enterTransition = {
-                    initial, target ->
                 EnterTransition.None
             },exitTransition = {
-                    initial, target ->
                 ExitTransition.None
             }){
                 ProductionProgress(it.arguments?.getString("name") ?: "长阳创谷E栋屋顶")
             }
             composable("converterLine/{name}",enterTransition = {
-                    initial, target ->
                 EnterTransition.None
             },exitTransition = {
-                    initial, target ->
                 ExitTransition.None
             }){
                 ConverterLine(it.arguments?.getString("name") ?: "长阳创谷E栋屋顶")
             }
             composable("loss/{name}",enterTransition = {
-                    initial, target ->
                 EnterTransition.None
             },exitTransition = {
-                    initial, target ->
                 ExitTransition.None
             }){
                 EfficiencyLoss(it.arguments?.getString("name") ?: "长阳创谷E栋屋顶")
             }
             composable("messageDetail/{messageId}",enterTransition = {
-                    initial, target ->
                 EnterTransition.None
             },exitTransition = {
-                    initial, target ->
                 ExitTransition.None
             }){
                 MessageContent(it.arguments?.getString("messageId")?.toInt() ?: 0)

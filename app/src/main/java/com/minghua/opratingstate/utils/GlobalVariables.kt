@@ -26,9 +26,11 @@ fun yCoordination(height: Float, y: Float, maxValue: Float): Float {
 }
 
 //val colorGroup = listOf(Color(0xff00ffcc),Color.Red, Teal200)
-val colorGroup = listOf(Color(0xffdedede),
+val colorGroup = listOf(
+    Color(0xffdedede),
     Color(0xff7e7e7e),
-    Color(0xff59b9b8)).reversed()
+    Color(0xff59b9b8)
+).reversed()
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
