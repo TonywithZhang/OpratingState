@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
 import com.airbnb.lottie.compose.*
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.minghua.opratingstate.network.repositories.loginNetwork
@@ -55,7 +56,10 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-val loginKey = booleanPreferencesKey("login_state")
+private val loginKey = booleanPreferencesKey("login_state")
+private val nameKey = stringPreferencesKey("username")
+
+private val passwordKey = stringPreferencesKey("password")
 
 class MainActivity : ComponentActivity() {
     //    private val permissionRequest = registerForActivityResult(ActivityResultContracts.RequestPermission()){
@@ -71,7 +75,7 @@ class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(window,false)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             OpratingStateTheme {
                 // A surface container using the 'background' color from the theme
@@ -83,16 +87,18 @@ class MainActivity : ComponentActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val controller = window.insetsController
 
-            if(controller != null) {
+            if (controller != null) {
                 controller.hide(WindowInsets.Type.statusBars() or WindowInsets.Type.navigationBars())
-                controller.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                controller.systemBarsBehavior =
+                    WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
             }
-        } else{
+        } else {
             window.setFlags(
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+            window.decorView.systemUiVisibility =
+                View.SYSTEM_UI_FLAG_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
         }
         //window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
         //window.insetsController?.hide(WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS)
@@ -109,7 +115,6 @@ class MainActivity : ComponentActivity() {
 }
 
 @ExperimentalPermissionsApi
-@SuppressLint("FlowOperatorInvokedInComposition")
 @ExperimentalAnimationApi
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -132,12 +137,20 @@ fun LogInView(onStateChange: (Boolean) -> Unit) {
         InputForm(onStateChange)
     }
 }
-
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun InputForm(onStateChange: (Boolean) -> Unit, modifier: Modifier = Modifier) {
     var userName by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
+    val storedData = LocalContext.current.dataStore.data
+    LaunchedEffect(key1 = 0, block = {
+        storedData.map { preference -> preference[nameKey] ?: "" }.collect { userName = it }
+        //storedData.map { preference -> preference[passwordKey] ?: "" }.collect { password = it;Log.d(TAG, "InputForm: password : $it") }
+    })
+    LaunchedEffect(key1 = 0, block = {
+        //storedData.map { preference -> preference[nameKey] ?: "" }.collect { userName = it;Log.d(TAG, "InputForm: username : $it") }
+        storedData.map { preference -> preference[passwordKey] ?: "" }.collect { password = it }
+    })
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -288,6 +301,9 @@ fun InputForm(onStateChange: (Boolean) -> Unit, modifier: Modifier = Modifier) {
                                             onStateChange(true)
                                             context.dataStore.edit { settings ->
                                                 settings[loginKey] = true
+                                                settings[nameKey] = userName
+                                                settings[passwordKey] = password
+                                                Log.d(TAG, "InputForm: username: $userName, password: $password")
                                             }
                                         } else {
                                             Toast.makeText(
