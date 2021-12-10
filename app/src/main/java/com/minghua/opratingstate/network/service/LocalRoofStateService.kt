@@ -29,6 +29,9 @@ interface LocalRoofStateService {
     suspend fun getSystemEfficiency() : List<Float>
 
     @Multipart
-    @POST("suggestions")
-    suspend fun uploadSuggestions(@PartMap params : Map<String,RequestBody>,@Part parts : List<MultipartBody.Part>) : Int
+    @POST("uploadFile")
+    suspend fun uploadSuggestions(
+        @Query("issue") id : Int,
+        @Query("suggestion") suggestion : String,
+        @Part files : List<MultipartBody.Part>) : UploadResult
 }

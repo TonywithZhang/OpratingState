@@ -32,6 +32,10 @@ val colorGroup = listOf(
     Color(0xff59b9b8)
 ).reversed()
 
+//val localServerIP = "10.151.112.201"
+//val remoteServerIP = "101.132.236.192"
+val serverIP = "10.151.112.201"
+
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 //首页顶部的电站选择的项目
@@ -112,20 +116,22 @@ val projects = listOf(
 )
 
 val messageList = listOf(
-    MessageModel("屋顶** 1A逆变器通讯不佳", dateFormatter.format(Date()),true),
-    MessageModel("屋顶** 07组串部分遮挡",dateFormatter.format(Date()),false),
-    MessageModel("屋顶** 1A逆变器通讯不佳","2021-10-8",false),
-    MessageModel("屋顶** 07组串部分遮挡","2021-10-8",false),
-    MessageModel("屋顶**","2021-10-8",true),
-    MessageModel("屋顶**","2021-10-8",false),
-    MessageModel("屋顶**","2021-10-8",false),
-    MessageModel("屋顶**","2021-10-8",true),
-    MessageModel("屋顶**","2021-10-8",false),
-    MessageModel("屋顶**","2021-10-8",false),
-    MessageModel("屋顶**","2021-10-8",false),
-    MessageModel("屋顶**","2021-10-8",false),
-    MessageModel("屋顶**","2021-10-8",true),
-    MessageModel("屋顶**","2021-10-8",false),
-    MessageModel("屋顶**","2021-10-8",false)
+    MessageModel(1,"屋顶** 1A逆变器通讯不佳", dateFormatter.format(Date()),true),
+    MessageModel(2,"屋顶** 07组串部分遮挡",dateFormatter.format(Date()),false),
+    MessageModel(3,"屋顶** 1A逆变器通讯不佳","2021-10-8",false),
+    MessageModel(4,"屋顶** 07组串部分遮挡","2021-10-8",false),
+    MessageModel(5,"屋顶**","2021-10-8",true),
+    MessageModel(6,"屋顶**","2021-10-8",false),
+    MessageModel(7,"屋顶**","2021-10-8",false),
+    MessageModel(8,"屋顶**","2021-10-8",true),
+    MessageModel(9,"屋顶**","2021-10-8",false),
+    MessageModel(10,"屋顶**","2021-10-8",false),
+    MessageModel(11,"屋顶**","2021-10-8",false),
+    MessageModel(12,"屋顶**","2021-10-8",false),
+    MessageModel(13,"屋顶**","2021-10-8",true),
+    MessageModel(14,"屋顶**","2021-10-8",false),
+    MessageModel(15,"屋顶**","2021-10-8",false)
 )
 val attachmentList = listOf("*************.jpg","********.jpg")
+
+val formDataMediaType = "multipart/form-data"

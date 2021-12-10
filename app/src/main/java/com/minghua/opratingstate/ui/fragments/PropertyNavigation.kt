@@ -6,11 +6,8 @@ import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Scaffold
@@ -20,18 +17,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavHostController
-import androidx.navigation.NavType
-import androidx.navigation.navArgument
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
-import com.google.accompanist.navigation.animation.navigation
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.minghua.opratingstate.R
 import com.minghua.opratingstate.models.BottomNavigationModel
 import com.minghua.opratingstate.ui.fragments.project_information.EfficiencyLoss
-import com.minghua.opratingstate.ui.theme.topBarColor
 
 val bottomNavigationModels = listOf(
     BottomNavigationModel("首页", R.drawable.baseline_home_black_24dp, "main"),
@@ -142,7 +134,7 @@ fun PropertyNavigation() {
             },exitTransition = {
                 ExitTransition.None
             }){
-                MessageContent(it.arguments?.getString("messageId")?.toInt() ?: 0)
+                MessageContent(it.arguments?.getString("messageId")?.toInt() ?: 0,navController)
             }
         }
     }

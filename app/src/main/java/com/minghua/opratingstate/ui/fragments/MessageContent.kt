@@ -1,7 +1,12 @@
 package com.minghua.opratingstate.ui.fragments
 
 import android.content.ContentValues.TAG
+import android.net.Uri
+import android.provider.DocumentsContract
+import android.provider.DocumentsProvider
+import android.provider.MediaStore
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
@@ -27,23 +32,43 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toFile
 import androidx.documentfile.provider.DocumentFile
+import androidx.navigation.NavHostController
 import com.minghua.opratingstate.MainActivity
 import com.minghua.opratingstate.R
+import com.minghua.opratingstate.network.repositories.localRoofRepo
 import com.minghua.opratingstate.ui.theme.topBarColor
 import com.minghua.opratingstate.utils.attachmentList
+import com.minghua.opratingstate.utils.formDataMediaType
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okio.BufferedSink
+import okio.Okio
+import okio.source
+import java.io.File
+import java.io.IOException
+import java.lang.IllegalArgumentException
 
 @Composable
-fun MessageContent(messageId: Int) {
-    val picList = remember{ mutableStateListOf<String>()}
+fun MessageContent(messageId: Int,controller : NavHostController?) {
+    var suggestion by remember { mutableStateOf("") }
+    val picList = remember { mutableStateListOf<Uri>() }
     val activity = LocalContext.current as MainActivity
     val pictureLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
-    ){ pic ->
+    ) { pic ->
         //Log.d(TAG, "MessageContent: ${DocumentFile.isDocumentUri(activity, it)}")
         //activity.contentResolver.openInputStream(it)
-        val doc = DocumentFile.fromSingleUri(activity,pic)
-        doc?.also { picList.add(it.name!!) }
+        //val doc = DocumentFile.fromSingleUri(activity,pic)
+        //doc?.also { picList.add(it.name!!) }
         //Log.d(TAG, "MessageContent: ${doc?.name}")
+        pic?.also { picList.add(pic) }
     }
     LazyColumn(modifier = Modifier.fillMaxWidth())
     {
@@ -94,7 +119,7 @@ fun MessageContent(messageId: Int) {
                     text = "反馈信息",
                     style = TextStyle(color = topBarColor, fontWeight = FontWeight.Bold)
                 )
-                var suggestion by remember { mutableStateOf("") }
+
                 TextField(
                     value = suggestion,
                     onValueChange = { suggestion = it },
@@ -121,19 +146,91 @@ fun MessageContent(messageId: Int) {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = it)
+                val doc = DocumentFile.fromSingleUri(activity, it)
+                Text(text = doc?.name ?: "")
                 Image(
                     painter = painterResource(id = R.drawable.baseline_delete_black_24dp),
                     contentDescription = null,
-                    modifier = Modifier.size(15.dp)
+                    modifier = Modifier
+                        .size(15.dp)
                         .clickable { picList.remove(it) }
                 )
             }
         }
         item { Spacer(modifier = Modifier.height(50.dp)) }
         item {
-            Row(horizontalArrangement = Arrangement.Center) {
-                Button(onClick = {  }, colors = buttonColors(backgroundColor = topBarColor)) {
+            Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
+                Button(
+                    onClick = {
+                        if (picList.isEmpty() && suggestion.isBlank())
+                        {
+                            Toast.makeText(activity,"建议不能为空",Toast.LENGTH_LONG).show()
+                            return@Button
+                        }
+                        val fileList = mutableListOf<MultipartBody.Part>()
+                        picList.forEach {
+                            val doc = DocumentFile.fromSingleUri(activity,it)
+                            val ins = activity.contentResolver.openInputStream(it)
+                            var body = object : RequestBody(){
+                                override fun contentType(): MediaType? = formDataMediaType.toMediaType()
+
+                                override fun writeTo(sink: BufferedSink) {
+                                    try {
+                                        val source = ins?.source() ?: return
+                                        sink.writeAll(source)
+                                        source.close()
+                                    }catch (e : IOException)
+                                    {
+                                        throw e
+                                    }
+                                }
+
+                            }
+//                                .query(it,null,null,null,null)
+//                            var fileName : String = ""
+//                            if (cursor != null && cursor.moveToFirst())
+//                            {
+//                                try {
+//                                    val columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATE_ADDED)
+//                                    fileName =cursor.getString(columnIndex)
+//                                } catch (e : IllegalArgumentException)
+//                                {
+//                                    e.printStackTrace()
+//                                }finally {
+//                                    cursor.close()
+//                                }
+//                            }
+
+                            //val request = File(fileName).asRequestBody(formDataMediaType.toMediaType())
+                            val file = MultipartBody.Part.createFormData("files",doc?.name,body)
+                            fileList.add(file)
+                        }
+                        val scope = CoroutineScope(Dispatchers.IO)
+                        scope.launch {
+                            val message = kotlin.runCatching {
+                                val result = localRoofRepo().uploadSuggestions(messageId,suggestion,fileList)
+                                Log.d(TAG, "MessageContent: ${result.msg}")
+                            }
+                            withContext(Dispatchers.Main)
+                            {
+                                if (message.isSuccess) {
+                                    Toast.makeText(activity, "上传成功", Toast.LENGTH_LONG).show()
+                                    controller?.navigateUp()
+                                }
+                                else {
+                                    Toast.makeText(activity, "上传失败", Toast.LENGTH_LONG).show()
+                                    Log.d(TAG, "MessageContent: ${message.exceptionOrNull()?.message}")
+                                    message.exceptionOrNull()?.printStackTrace()
+                                }
+                            }
+                            
+                        }
+                    },
+                    colors = buttonColors(backgroundColor = topBarColor),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(15.dp)
+                ) {
                     Text(text = "提交", style = TextStyle(color = Color.White))
                 }
             }
@@ -144,5 +241,5 @@ fun MessageContent(messageId: Int) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewMessageContent() {
-    MessageContent(1)
+    MessageContent(1,null)
 }

@@ -63,7 +63,7 @@ fun MessagePage(controller : NavHostController?) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(Color.White)
-                    .clickable { it.read = true;controller?.navigate("messageDetail/1") }
+                    .clickable { it.read = true;controller?.navigate("messageDetail/${it.issueID}") }
                     .padding(horizontal = 12.dp, vertical = 5.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -94,7 +94,7 @@ fun MessagePage(controller : NavHostController?) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(Color.White)
-                    .clickable { it.read = true;controller?.navigate("messageDetail/1") }
+                    .clickable { it.read = true;controller?.navigate("messageDetail/${it.issueID}") }
                     .padding(horizontal = 12.dp, vertical = 5.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
