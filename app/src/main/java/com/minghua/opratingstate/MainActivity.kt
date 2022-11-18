@@ -70,8 +70,7 @@ class MainActivity : ComponentActivity() {
 //            Toast.makeText(this,"权限请求失败",Toast.LENGTH_LONG).show()
 //        }
 //    }
-    @ExperimentalPermissionsApi
-    @ExperimentalAnimationApi
+    @OptIn(ExperimentalAnimationApi::class,ExperimentalPermissionsApi::class)
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,6 +106,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private var pressTime: Long = 0L
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         super.onBackPressed()
         if (System.currentTimeMillis() - pressTime < 2000) finish()
